@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -8,25 +9,31 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private InputActionReference walkAction;
     [SerializeField] private InputActionReference rollAction;
+    [SerializeField] private InputActionReference netAction;
 
     [SerializeField] private float moveSpeed;
     [SerializeField] private float rollTime;
     [SerializeField] private float forceRolling;
+    [SerializeField] private float netDistance;
+
+    [SerializeField] private LayerMask netAffectedMask;
 
     private Rigidbody rb;
     private Vector2 movementDirection;
 
     private float rollCurrentTime;
     private float rollForce;
-    private bool invulnarability;
+    private bool invulnarability;  
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+
         rollCurrentTime = 0;
         rollForce = 1;
     }
 
+    #region input
     private void OnEnable()
     {
         walkAction.action.started += WalkAction;
@@ -34,6 +41,7 @@ public class PlayerController : MonoBehaviour
         walkAction.action.canceled += WalkAction;
 
         rollAction.action.started += RollAction;
+        netAction.action.started += NetAction;
     }
 
     private void OnDisable()
@@ -43,7 +51,9 @@ public class PlayerController : MonoBehaviour
         walkAction.action.canceled -= WalkAction;
 
         rollAction.action.started -= RollAction;
+        netAction.action.started -= NetAction;
     }
+    #endregion
 
     private void WalkAction(InputAction.CallbackContext obj)
     {
@@ -63,11 +73,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void NetAction(InputAction.CallbackContext obj)
+    {
+        if(CheckForwardObject())
+        {
+            KillBee();
+        }
+    }
+
     private void Update()
     {
         if(invulnarability)
         {
-
             rollCurrentTime += Time.deltaTime;
 
             if(rollCurrentTime >= rollTime)
@@ -77,5 +94,20 @@ public class PlayerController : MonoBehaviour
                 rollCurrentTime = 0;
             }
         }
+    }
+
+    private bool CheckForwardObject()
+    {
+        Ray netRaycast = new Ray(transform.position, transform.forward);
+        if (Physics.Raycast(netRaycast, netDistance, netAffectedMask))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private void KillBee()
+    {
+        Debug.Log("KillBee");
     }
 }
