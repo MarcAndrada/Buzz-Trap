@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 1122046721}
   - component: {fileID: 1122046718}
   m_Layer: 6
-  m_Name: Player (1)
+  m_Name: Bee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -494,7 +494,7 @@ Transform:
   m_GameObject: {fileID: 1696410828}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.1303277, y: 1.86, z: 1.5444783}
+  m_LocalPosition: {x: 2.1303277, y: 1.86, z: 0.585}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -518,6 +518,8 @@ MonoBehaviour:
     type: 3}
   netAction: {fileID: 3116874155098175732, guid: 7c7ea573683b40b48b25c778e7ce3612,
     type: 3}
+  shieldAction: {fileID: -8687942442020392197, guid: 7c7ea573683b40b48b25c778e7ce3612,
+    type: 3}
   moveSpeed: 5
   rollTime: 0.5
   forceRolling: 2
@@ -525,6 +527,7 @@ MonoBehaviour:
   netAffectedMask:
     serializedVersion: 2
     m_Bits: 64
+  shield: {fileID: 2550587361070604480, guid: 287523c05b4ca6f40b374881ed4816da, type: 3}
 --- !u!54 &1696410835
 Rigidbody:
   m_ObjectHideFlags: 0

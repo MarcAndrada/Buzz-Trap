@@ -7,23 +7,34 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Inputs")]
     [SerializeField] private InputActionReference walkAction;
     [SerializeField] private InputActionReference rollAction;
     [SerializeField] private InputActionReference netAction;
+    [SerializeField] private InputActionReference shieldAction;
 
+    [Header("MoveVariables")]
     [SerializeField] private float moveSpeed;
+
+    [Header("RollVariables")]
     [SerializeField] private float rollTime;
     [SerializeField] private float forceRolling;
-    [SerializeField] private float netDistance;
 
+    [Header("NetVariables")]
+    [SerializeField] private float netDistance;
     [SerializeField] private LayerMask netAffectedMask;
+
+    [Header("ShieldVariables")]
+    [SerializeField] private GameObject shield;
 
     private Rigidbody rb;
     private Vector2 movementDirection;
 
     private float rollCurrentTime;
     private float rollForce;
-    private bool invulnarability;  
+
+    private bool invulnarability;
+    private bool shieldActive;
 
     private void Start()
     {
@@ -31,6 +42,9 @@ public class PlayerController : MonoBehaviour
 
         rollCurrentTime = 0;
         rollForce = 1;
+
+        invulnarability = false;
+        shieldActive = false;
     }
 
     #region input
@@ -42,6 +56,7 @@ public class PlayerController : MonoBehaviour
 
         rollAction.action.started += RollAction;
         netAction.action.started += NetAction;
+        shieldAction.action.started += ShieldAction;
     }
 
     private void OnDisable()
@@ -52,6 +67,7 @@ public class PlayerController : MonoBehaviour
 
         rollAction.action.started -= RollAction;
         netAction.action.started -= NetAction;
+        shieldAction.action.started -= ShieldAction;
     }
     #endregion
 
@@ -81,19 +97,35 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void ShieldAction(InputAction.CallbackContext obj)
+    {
+        if(!shieldActive)
+        {
+            shieldActive = true;
+            GameObject shieldCreated = Instantiate(shield, transform.position, Quaternion.identity);
+            shieldCreated.transform.SetParent(transform, true);
+        }
+    }
+
     private void Update()
     {
-        if(invulnarability)
+        if (invulnarability)
         {
             rollCurrentTime += Time.deltaTime;
 
-            if(rollCurrentTime >= rollTime)
+            if (rollCurrentTime >= rollTime)
             {
                 invulnarability = false;
                 rollForce = 1;
                 rollCurrentTime = 0;
             }
         }
+
+        //if (shieldActive)
+        //{
+        //    shieldActive = false;
+        //    Destroy(transform.GetChild(0).gameObject);
+        //}
     }
 
     private bool CheckForwardObject()
