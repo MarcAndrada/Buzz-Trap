@@ -243,7 +243,7 @@ GameObject:
   - component: {fileID: 1122046718}
   m_Layer: 6
   m_Name: Bee
-  m_TagString: Untagged
+  m_TagString: Bee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -493,13 +493,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1696410828}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: 0.6876743, z: -0, w: 0.7260194}
   m_LocalPosition: {x: 2.1303277, y: 1.86, z: 0.585}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 86.893, z: 0}
 --- !u!114 &1696410834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -520,6 +520,8 @@ MonoBehaviour:
     type: 3}
   shieldAction: {fileID: -8687942442020392197, guid: 7c7ea573683b40b48b25c778e7ce3612,
     type: 3}
+  shotAction: {fileID: -3253370971727077831, guid: 7c7ea573683b40b48b25c778e7ce3612,
+    type: 3}
   moveSpeed: 5
   rollTime: 0.5
   forceRolling: 2
@@ -528,6 +530,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   shield: {fileID: 2550587361070604480, guid: 287523c05b4ca6f40b374881ed4816da, type: 3}
+  bullet: {fileID: 2954930505767692289, guid: 2dbfe473e8a62424ca52ec24df24de9e, type: 3}
+  bulletForce: 200
 --- !u!54 &1696410835
 Rigidbody:
   m_ObjectHideFlags: 0

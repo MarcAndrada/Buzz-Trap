@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private InputActionReference rollAction;
     [SerializeField] private InputActionReference netAction;
     [SerializeField] private InputActionReference shieldAction;
+    [SerializeField] private InputActionReference shotAction;
 
     [Header("MoveVariables")]
     [SerializeField] private float moveSpeed;
@@ -26,6 +27,10 @@ public class PlayerController : MonoBehaviour
 
     [Header("ShieldVariables")]
     [SerializeField] private GameObject shield;
+
+    [Header("ShootVariables")]
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private float bulletForce;
 
     private Rigidbody rb;
     private Vector2 movementDirection;
@@ -57,6 +62,7 @@ public class PlayerController : MonoBehaviour
         rollAction.action.started += RollAction;
         netAction.action.started += NetAction;
         shieldAction.action.started += ShieldAction;
+        shotAction.action.started += ShotAction;
     }
 
     private void OnDisable()
@@ -68,6 +74,7 @@ public class PlayerController : MonoBehaviour
         rollAction.action.started -= RollAction;
         netAction.action.started -= NetAction;
         shieldAction.action.started -= ShieldAction;
+        shotAction.action.started -= ShotAction;
     }
     #endregion
 
@@ -107,6 +114,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void ShotAction(InputAction.CallbackContext obj)
+    {
+        GameObject bulletCreated = Instantiate(bullet, transform.position, Quaternion.identity);
+        bulletCreated.GetComponent<Rigidbody>().AddForce(transform.forward.x * bulletForce, 0, transform.forward.y * bulletForce);
+    }
+
     private void Update()
     {
         if (invulnarability)
@@ -120,12 +133,6 @@ public class PlayerController : MonoBehaviour
                 rollCurrentTime = 0;
             }
         }
-
-        //if (shieldActive)
-        //{
-        //    shieldActive = false;
-        //    Destroy(transform.GetChild(0).gameObject);
-        //}
     }
 
     private bool CheckForwardObject()
