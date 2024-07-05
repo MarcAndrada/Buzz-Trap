@@ -5,7 +5,6 @@ public class BeeManager : MonoBehaviour
 {
     public static BeeManager instance;
 
-
     public bool queenAlive;
     private bool nearToQueen;
     public enum YellowBeesStates { NONE, PLACING, WAITING, CHARGING, DRAG }
@@ -174,13 +173,29 @@ public class BeeManager : MonoBehaviour
         if (!queenAlive)
         {
             _bee.NoQueenBehaviour();
+            yellowBeesState = YellowBeesStates.PLACING;
+            yellowBeesTimeWaited = 0;
             return;
         }
 
 
-        if (nearToQueen && _beeId < totalYellowBeesNearQueen)
+        if (nearToQueen && _beeId <= totalYellowBeesNearQueen)
         {
             //Rodear a la reina
+            //Calcular posicion
+            float angle = (43.25f / totalYellowBeesNearQueen) * _beeId;
+            float X = Mathf.Cos(angle);
+            float Z = Mathf.Sin(angle);
+
+            Vector3 defenderPosition = bees[queenBeeId].transform.position + (new Vector3(X, 0, Z) * yellowBeesDistanceFromQueen);
+
+            _bee.SetDestination(defenderPosition);
+
+            //Mirar al player
+            _bee.SetRotationDestiny(player.transform.position);
+
+            _bee.DefendQueenBehabiour();
+            return;
         }
         else if (nearToQueen)
             _beeId -= totalYellowBeesNearQueen;

@@ -48,6 +48,11 @@ public class YellowBee : Bee
                 break;
         }
     }
+    public void DefendQueenBehabiour()
+    {
+        MoveToDestiny(movementSpeed);
+        Rotate(rotationSpeed);
+    }
     public override void NoQueenBehaviour()
     {
         //Moverse Random
@@ -68,7 +73,7 @@ public class YellowBee : Bee
         rotationDestination = destinationPos;
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawSphere(destinationPos, 0.1f);
