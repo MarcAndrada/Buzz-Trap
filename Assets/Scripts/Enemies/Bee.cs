@@ -32,12 +32,12 @@ public abstract class Bee : MonoBehaviour
     }
     protected void Rotate(float _rotationSpeed)
     {
-        if (Vector3.Distance(rotationDestination, transform.position) <= 0.1f)
-            return;
+        //if (Vector3.Distance(rotationDestination, transform.position) <= 0.1f)
+        //    return;
 
-        Vector3 targetDirection = rotationDestination - transform.position;
-        Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _rotationSpeed * Time.fixedDeltaTime);
+        //Vector3 targetDirection = rotationDestination - transform.position;
+        //Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+        //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _rotationSpeed * Time.fixedDeltaTime);
     }
 
     public void GetDamage()

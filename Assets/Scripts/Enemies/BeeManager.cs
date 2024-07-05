@@ -1,4 +1,3 @@
-using AYellowpaper.SerializedCollections.Editor.Data;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +7,7 @@ public class BeeManager : MonoBehaviour
 
 
     public bool queenAlive;
-    private bool closeToQueen;
+    private bool nearToQueen;
     public enum YellowBeesStates { NONE, PLACING, WAITING, CHARGING, DRAG }
 
     [SerializeField]
@@ -16,6 +15,9 @@ public class BeeManager : MonoBehaviour
     [SerializeField]
     private List<Bee> bees;
 
+
+    [Space, Header("Queen Bee"), SerializeField]
+    private float playerDistanceNearQueen;
     private int queenBeeId;
 
     [Space, Header("Yellow Bees"), SerializeField]
@@ -33,9 +35,11 @@ public class BeeManager : MonoBehaviour
     [SerializeField]
     private float yellowBeesDragDuration;
     private float yellowBeesTimeWaited;
-    [field: SerializeField]
     public YellowBeesStates yellowBeesState { get; private set; }
-
+    [Header("Yellow Bees Defending"), SerializeField]
+    private int totalYellowBeesNearQueen;
+    [SerializeField]
+    private float yellowBeesDistanceFromQueen;
     private void Awake()
     {
         if (instance != null)
@@ -62,6 +66,8 @@ public class BeeManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        CheckIfQueenAlive();
+        CheckIfPlayerNearToQueen();
         BeesUpdate();
     }
 
@@ -131,6 +137,28 @@ public class BeeManager : MonoBehaviour
 
     }
 
+    private void CheckIfQueenAlive()
+    {
+        queenBeeId = -1;
+
+        for (int i = 0; i < bees.Count; i++)
+        {
+            if (bees[i].beeType == Bee.BeeType.QUEEN)
+            {
+                queenBeeId = i;
+                break;
+            }
+        }
+
+        queenAlive = queenBeeId != -1;
+    }
+    private void CheckIfPlayerNearToQueen()
+    {
+        if (queenAlive && Vector3.Distance(player.transform.position, bees[queenBeeId].transform.position) < playerDistanceNearQueen)
+            nearToQueen = true;
+        else
+            nearToQueen = false;
+    }
     private void QueenUpdate(QueenBee _bee)
     {
         if (!queenAlive)
@@ -148,6 +176,16 @@ public class BeeManager : MonoBehaviour
             _bee.NoQueenBehaviour();
             return;
         }
+
+
+        if (nearToQueen && _beeId < totalYellowBeesNearQueen)
+        {
+            //Rodear a la reina
+        }
+        else if (nearToQueen)
+            _beeId -= totalYellowBeesNearQueen;
+
+        
 
         switch (yellowBeesState)
         {
@@ -178,11 +216,13 @@ public class BeeManager : MonoBehaviour
 
                 //El punto de rotacion es el player
                 _bee.SetRotationDestiny(player.transform.position);
+                if (yellowBeesTimeWaited >= yellowBeesWaitingDuration)
+                    _bee.chargeDirection = (player.transform.position - _bee.transform.position).normalized; 
 
                 break;
             case YellowBeesStates.CHARGING:
                 //Calcular una nueva posicion y rotacion hacia el forward de la abeja
-                Vector3 newDestiny = _bee.transform.right * 10;
+                Vector3 newDestiny = _bee.transform.position + _bee.chargeDirection * 10;
                 _bee.SetDestination(newDestiny);
                 _bee.SetRotationDestiny(newDestiny);
 
@@ -264,53 +304,5 @@ public class BeeManager : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        int _beeId = 0;
-
-        foreach (Bee bee in bees)
-        {
-            switch (bee.beeType)
-            {
-                case Bee.BeeType.YELLOW:
-                    Gizmos.color = Color.yellow;
-                    YellowBee _bee = (YellowBee)bee;
-
-                    Vector3 destinyPos = CalculateNewColumnRowPosition(_beeId);
-                    //Cambiar la posicion de destino
-                    Gizmos.DrawSphere(destinyPos, 0.1f);
-                    Gizmos.DrawLine(_bee.transform.position, destinyPos);
-                    _beeId++;
-                    break;
-                default: 
-                    break;
-            }
-
-
-        }
-
-        //Vector3 direction = Vector3.forward;
-        //Vector3 axis = Vector3.right;
-        //Vector3 starterPos;
-        //int rowId;
-        //Vector3 pos;
-
-
-        //Gizmos.color = Color.blue;
-        //rowId = 0;
-        //starterPos = player.transform.position + (direction * (beesPlayerOffset + (beesOffset * rowId)) - (axis * ((beesPerRow / 2) * beesOffset)));
-        //pos = starterPos + axis * 0;
-        //Gizmos.DrawSphere(pos, 0.1f);
-        //Debug.Log("Pos de id 0 = " + pos);
-
-        //Gizmos.color = Color.magenta;
-        //pos = starterPos + axis * 4;
-        //Gizmos.DrawSphere(pos, 0.1f);
-        //Debug.Log("Pos de id 4 = " + pos);
-
-        //Gizmos.color = Color.white;
-        //pos = starterPos + axis * 8;
-        //Gizmos.DrawSphere(starterPos, 0.1f);
-        //Debug.Log("Pos de id 8 = " + pos);
-
-
     }
 }

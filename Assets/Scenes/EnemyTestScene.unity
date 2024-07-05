@@ -334,14 +334,16 @@ MonoBehaviour:
   - {fileID: 108763201}
   - {fileID: 2086070824}
   - {fileID: 1726016771}
+  playerDistanceNearQueen: 0
   beesPerRow: 3
-  beesPlayerOffset: 2
-  beesOffset: 1
-  yellowBeesPlacingDuration: 50
+  beesPlayerOffset: 2.5
+  beesOffset: 0.7
+  yellowBeesPlacingDuration: 7.5
   yellowBeesWaitingDuration: 1
   yellowBeesChargeDuration: 2
   yellowBeesDragDuration: 3
-  <yellowBeesState>k__BackingField: 0
+  totalYellowBeesNearQueen: 0
+  yellowBeesDistanceFromQueen: 0
 --- !u!4 &149200821
 Transform:
   m_ObjectHideFlags: 0
@@ -1175,11 +1177,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: YellowBee (7)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4914135931280899209, guid: f6ca3ee07f32b194a873629dc1be16a5,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
