@@ -3,7 +3,8 @@ public class YellowBee : Bee
 {
     [Space, Header("Yellow Bee"), SerializeField]
     protected float chargeSpeed;
-
+    [SerializeField]
+    protected float defendQueenSpeed;
     [SerializeField]
     protected float randomOffset;
 
@@ -47,7 +48,7 @@ public class YellowBee : Bee
     }
     public void DefendQueenBehabiour()
     {
-        MoveToDestiny(movementSpeed);
+        MoveToDestiny(defendQueenSpeed);
     }
     public override void NoQueenBehaviour()
     {

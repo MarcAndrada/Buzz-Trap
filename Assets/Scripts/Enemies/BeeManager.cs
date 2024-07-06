@@ -171,8 +171,7 @@ public class BeeManager : MonoBehaviour
     private void QueenUpdate(QueenBee _bee)
     {
         WaitToSpawnNewBee();
-        if (Input.GetKeyDown(KeyCode.P))
-            Destroy(_bee.gameObject);
+        _bee.RiseWand(nearToQueen);
     }
     private void CheckIfQueenAlive()
     {

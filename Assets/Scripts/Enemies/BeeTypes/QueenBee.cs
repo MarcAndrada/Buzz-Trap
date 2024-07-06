@@ -1,6 +1,10 @@
+using TMPro;
 using UnityEngine;
 public class QueenBee : Bee
 {
+    
+
+
     public override void NoQueenBehaviour()
     {
         Debug.Log("WTF?");
@@ -9,5 +13,10 @@ public class QueenBee : Bee
     public override void QueenBehaviour()
     {
         Debug.Log("No hay na :3");
+    }
+
+    public void RiseWand(bool _rise)
+    {
+        animator.SetBool("RiseWand", _rise);
     }
 }

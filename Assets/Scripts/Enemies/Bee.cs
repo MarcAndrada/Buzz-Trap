@@ -15,12 +15,13 @@ public abstract class Bee : MonoBehaviour
     
     public Rigidbody rb {  get; protected set; }
     protected EightDirectionAnimationController eightController;
-
+    protected Animator animator;
 
     virtual protected void Awake()
     {
         rb = GetComponent<Rigidbody>();
         eightController = GetComponent<EightDirectionAnimationController>();
+        animator = GetComponent<Animator>();
         rotationDestination = transform.position + Vector3.back;
         UpdateAnimations();
     }

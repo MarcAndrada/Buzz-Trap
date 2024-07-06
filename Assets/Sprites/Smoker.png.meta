@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a66d3a9fcd60bff4fbda6fee09aee191
+guid: 679250d864d62b84b915dc9ed75de1e8
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,127 +123,64 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: QueenBee_0
+      name: Smoker_0
       rect:
         serializedVersion: 2
-        x: 26
-        y: 1012
-        width: 687
-        height: 800
-      alignment: 9
-      pivot: {x: 0.57964665, y: 0.30870178}
+        x: 727
+        y: 1430
+        width: 224
+        height: 244
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a03cc374c9481f8488088da7d40385be
-      internalID: 920559099
+      spriteID: b53100ec6546c714fa62d97b85a57184
+      internalID: 682894218
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: QueenBee_1
+      name: Smoker_1
       rect:
         serializedVersion: 2
-        x: 722
-        y: 1038
-        width: 684
-        height: 789
-      alignment: 9
-      pivot: {x: 0.57506955, y: 0.3142885}
+        x: 950
+        y: 721
+        width: 449
+        height: 607
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9204c9699a9972943848c9bbdb5148dd
-      internalID: -446712450
+      spriteID: 48aeaf401bad0fa4882e9b97403e3326
+      internalID: -1770224335
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: QueenBee_2
+      name: Smoker_2
       rect:
         serializedVersion: 2
-        x: 1413
-        y: 1033
-        width: 697
-        height: 739
-      alignment: 9
-      pivot: {x: 0.57941806, y: 0.3457849}
+        x: 1425
+        y: 711
+        width: 638
+        height: 775
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 90ea74fb234dfe044b1126e208ef6373
-      internalID: 1402413155
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: QueenBee_3
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 370
-        width: 601
-        height: 642
-      alignment: 9
-      pivot: {x: 0.54876083, y: 0.37958807}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c09b6a11af8aee14da36d51ee6462831
-      internalID: -1510911671
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: QueenBee_4
-      rect:
-        serializedVersion: 2
-        x: 776
-        y: 382
-        width: 602
-        height: 633
-      alignment: 9
-      pivot: {x: 0.5270445, y: 0.3816885}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e9d71a8887b951e42b467d8c4740a233
-      internalID: 667450544
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: QueenBee_5
-      rect:
-        serializedVersion: 2
-        x: 1465
-        y: 370
-        width: 607
-        height: 591
-      alignment: 9
-      pivot: {x: 0.5160928, y: 0.4008283}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 41cdbbc4f6350c649b8da0f0f2416000
-      internalID: 2110345841
+      spriteID: ef52070bd733bc7459823e812c46f2f6
+      internalID: -718989696
       vertices: []
       indices: 
       edges: []
@@ -251,7 +188,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 3ba9232fb5a9aef44bbf0a25a915768a
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -259,12 +196,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      QueenBee_0: 920559099
-      QueenBee_1: -446712450
-      QueenBee_2: 1402413155
-      QueenBee_3: -1510911671
-      QueenBee_4: 667450544
-      QueenBee_5: 2110345841
+      Smoker_0: 682894218
+      Smoker_1: -1770224335
+      Smoker_2: -718989696
+      Smoker_3: 1313536785
+      Smoker_4: -1062130481
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

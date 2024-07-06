@@ -86,8 +86,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1489079626, guid: d60b574438150df4abc912af652d11ac, type: 3}
-  m_Color: {r: 0.4716981, g: 0.4716981, b: 0.4716981, a: 1}
+  m_Sprite: {fileID: 1489079626, guid: b89a5462beac1224cb0c397ba1efed6c, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
@@ -109,6 +109,8 @@ GameObject:
   - component: {fileID: 2718063141015526548}
   - component: {fileID: 3166030625273902469}
   - component: {fileID: 3327162720268413232}
+  - component: {fileID: 8345812568928269601}
+  - component: {fileID: 3897012137897444927}
   m_Layer: 6
   m_Name: BlackBee
   m_TagString: Bee
@@ -193,7 +195,49 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <beeType>k__BackingField: 3
-  movementSpeed: 0.9
+  movementSpeed: 1.4
   minDistanceFromDestination: 0.3
   randomOffset: 6
   randomTimeNoQueenMinMax: {x: 1, y: 3}
+--- !u!95 &8345812568928269601
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6915760059550507245}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 52401d19b80047141a3d1e9b1e60a7b9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3897012137897444927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6915760059550507245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a46ecceff261ff148b16bcd03db43d2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lookDirection: {x: 0, y: 0, z: 0}
+  topAnimator: {fileID: 22100000, guid: ae9ba36628978f641ad27530cfab8c83, type: 2}
+  topLeftAnimator: {fileID: 22100000, guid: 620810d1a482e894eb24e55aa0e0ecda, type: 2}
+  leftAnimator: {fileID: 22100000, guid: 65e3a9a00d63a8046a9cb773c7428327, type: 2}
+  downLeftAnimator: {fileID: 22100000, guid: 148fe245220d57245a241c69c7e30389, type: 2}
+  downAnimator: {fileID: 22100000, guid: 133bd8108d771c545b201adf40881624, type: 2}
+  downRightAnimator: {fileID: 22100000, guid: 0c0e63a1cc97b0247b049f27f807bebf, type: 2}
+  rightAnimator: {fileID: 22100000, guid: fe4c89afeceaf36439b4d6a5ece9e849, type: 2}
+  topRightAnimator: {fileID: 22100000, guid: f56fd2a2209a37f4caaeb3c4b0dcc26f, type: 2}

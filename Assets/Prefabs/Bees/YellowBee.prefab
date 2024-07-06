@@ -101,6 +101,7 @@ MonoBehaviour:
   movementSpeed: 1
   minDistanceFromDestination: 0.1
   chargeSpeed: 1.2
+  defendQueenSpeed: 2.4
   randomOffset: 8
   randomTimeNoQueenMinMax: {x: 2, y: 5}
   chargeDirection: {x: 0, y: 0, z: 0}
