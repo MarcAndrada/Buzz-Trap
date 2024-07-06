@@ -50,7 +50,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 2038a37a87e1eff4fa5efd69c9d1312e, type: 3}
+        m_Texture: {fileID: 2800000, guid: f6ca14d1b28767248b6da146831632a1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -103,6 +103,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - CORNERS: 0
     - _AlphaClip: 1
     - _AlphaThreshold: 0.5
     - _AlphaToMask: 1
@@ -122,10 +123,10 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _HeightBlend: 20
+    - _HeightBlend: 5
     - _Metallic: 0
     - _OcclusionStrength: 1
-    - _OutlineThickness: -11.89
+    - _OutlineThickness: 1
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -139,25 +140,26 @@ Material:
     - _TerrainOffset: 0
     - _TerrainSize: 50
     - _USETERRAINCOLOR: 1
-    - _WindHeight: 1
+    - _WindHeight: 0.5
     - _WindIntensity: 0.5
-    - _WindNoiseSpeed: 1
+    - _WindNoiseSpeed: 0.2
     - _WindSpeed: 0.1
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 0.09313814, g: 0.8584906, b: 0.24768052, a: 1}
-    - _BottomColor: {r: 0.98039216, g: 0.98039216, b: 0.28627446, a: 1}
+    - _BottomColor: {r: 1, g: 1, b: 0, a: 0}
     - _Color: {r: 0.12019401, g: 0.6886792, b: 0.23389108, a: 1}
+    - _Direction: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FarColor: {r: 0.1137255, g: 0.6156863, b: 0.23137257, a: 0}
-    - _NearColor: {r: 0.5764706, g: 0.8980393, b: 0.3372549, a: 0}
-    - _NearFarRange: {r: 3, g: 17, b: 0, a: 0}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
-    - _ShadowColor: {r: 1, g: 1, b: 1, a: 0}
+    - _FarColor: {r: 0.14317428, g: 1, b: 0.08962262, a: 0}
+    - _NearColor: {r: 0.1251747, g: 0.4811321, b: 0.102127105, a: 0}
+    - _NearFarRange: {r: 5, g: 17, b: 0, a: 0}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 0}
+    - _ShadowColor: {r: 0.46226418, g: 0.45996884, b: 0.0021804967, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _WindNoiseConstrast: {r: 0, g: 1, b: 0, a: 0}
-    - _WindNoiseScale: {r: 40, g: 100, b: 0, a: 0}
+    - _WindNoiseScale: {r: 50, g: 100, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &7783103960408987171
 MonoBehaviour:
