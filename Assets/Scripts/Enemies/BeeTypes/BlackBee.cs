@@ -1,24 +1,52 @@
+using UnityEngine;
 public class BlackBee : Bee
 {
+    [Space, Header("Black Bee"), SerializeField]
+    private float randomOffset;
+
+    [SerializeField]
+    private Vector2 randomTimeNoQueenMinMax;
+    private float timeToSpawnRandomDestination;
+    private float timeWaited;
+
+    private void Start()
+    {
+        timeToSpawnRandomDestination = Random.Range(randomTimeNoQueenMinMax.x, randomTimeNoQueenMinMax.y);
+    }
+
+
+    protected override void MoveToDestiny(float _movementSpeed)
+    {
+        if (IsInDestiny())
+            return;
+        Vector3 direction = (destinationPos - transform.position).normalized;
+
+        rb.velocity = direction * _movementSpeed;
+    }
     public override void NoQueenBehaviour()
     {
-        throw new System.NotImplementedException();
+        //Moverse Random
+        WaitToGetRandomDestination();
+        base.MoveToDestiny(movementSpeed);
+        Rotate();
     }
 
     public override void QueenBehaviour()
     {
-        throw new System.NotImplementedException();
+        MoveToDestiny(movementSpeed);
+        Rotate();
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void WaitToGetRandomDestination()
     {
-        
-    }
+        timeWaited += Time.fixedDeltaTime;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (timeWaited < timeToSpawnRandomDestination)
+            return;
+
+        timeWaited = 0;
+        timeToSpawnRandomDestination = Random.Range(randomTimeNoQueenMinMax.x, randomTimeNoQueenMinMax.y);
+        destinationPos = transform.position + new Vector3(Random.Range(-randomOffset, randomOffset), 0, Random.Range(-randomOffset, randomOffset));
+        rotationDestination = destinationPos;
     }
 }
