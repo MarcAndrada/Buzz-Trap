@@ -28,13 +28,11 @@ public class BlackBee : Bee
         //Moverse Random
         WaitToGetRandomDestination();
         base.MoveToDestiny(movementSpeed);
-        Rotate();
     }
 
     public override void QueenBehaviour()
     {
         MoveToDestiny(movementSpeed);
-        Rotate();
     }
 
     private void WaitToGetRandomDestination()

@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour
         if (movementDirection != Vector2.zero)
             lastMovementDirection = movementDirection;
 
-        animationController.lookDirection = lastMovementDirection;
+        animationController.lookDirection = new Vector3(lastMovementDirection.x, 0, lastMovementDirection.y);
     }
 
     private void RollAction(InputAction.CallbackContext obj)

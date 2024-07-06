@@ -128,7 +128,7 @@ TextureImporter:
         serializedVersion: 2
         x: 26
         y: 1012
-        width: 695
+        width: 687
         height: 800
       alignment: 9
       pivot: {x: 0.57964665, y: 0.30870178}
@@ -147,9 +147,9 @@ TextureImporter:
       name: QueenBee_1
       rect:
         serializedVersion: 2
-        x: 712
+        x: 722
         y: 1038
-        width: 694
+        width: 684
         height: 789
       alignment: 9
       pivot: {x: 0.57506955, y: 0.3142885}
@@ -192,7 +192,7 @@ TextureImporter:
         x: 80
         y: 370
         width: 601
-        height: 649
+        height: 642
       alignment: 9
       pivot: {x: 0.54876083, y: 0.37958807}
       border: {x: 0, y: 0, z: 0, w: 0}

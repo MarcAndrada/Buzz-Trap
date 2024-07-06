@@ -55,7 +55,6 @@ public class RedBee : Bee
 
 
         MoveToDestiny(movementSpeed);
-        Rotate();
     }
 
     private void Shoot()

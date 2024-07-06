@@ -232,7 +232,7 @@ MonoBehaviour:
   - {fileID: 4554399103963050892}
   queenPrefab: {fileID: 5601922992707350489, guid: 04f113756bd8e2b4caeed28efd95df2e,
     type: 3}
-  playerDistanceNearQueen: 4.5
+  playerDistanceNearQueen: 3.5
   timeToSpawnNewQueen: 8.5
   timeToSpawnNewBee: 6
   canSpawnRedBees: 1
@@ -246,7 +246,7 @@ MonoBehaviour:
   beesPerRow: 3
   beesPlayerOffset: 2.5
   beesOffset: 0.7
-  yellowBeesPlacingDuration: 12
+  yellowBeesPlacingDuration: 8
   yellowBeesWaitingDuration: 1
   yellowBeesChargeDuration: 2
   yellowBeesDragDuration: 3

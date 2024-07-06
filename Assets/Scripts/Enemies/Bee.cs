@@ -14,12 +14,16 @@ public abstract class Bee : MonoBehaviour
 
     
     public Rigidbody rb {  get; protected set; }
+    protected EightDirectionAnimationController eightController;
+    protected Animator animator;
 
     virtual protected void Awake()
     {
         rb = GetComponent<Rigidbody>();
-
+        eightController = GetComponent<EightDirectionAnimationController>();
+        animator = GetComponent<Animator>();
         rotationDestination = transform.position + Vector3.back;
+        UpdateAnimations();
     }
 
     protected virtual void MoveToDestiny(float _movementSpeed)
@@ -29,15 +33,6 @@ public abstract class Bee : MonoBehaviour
         direction = direction.magnitude > 1f ? direction.normalized : direction;
 
         rb.velocity = direction * _movementSpeed;
-    }
-    protected void Rotate()
-    {
-        //if (Vector3.Distance(rotationDestination, transform.position) <= 0.1f)
-        //    return;
-
-        //Vector3 targetDirection = rotationDestination - transform.position;
-        //Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
-        //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _rotationSpeed * Time.fixedDeltaTime);
     }
 
     public void GetDamage()
@@ -63,21 +58,26 @@ public abstract class Bee : MonoBehaviour
     public abstract void QueenBehaviour();
     public abstract void NoQueenBehaviour();
 
+    public void UpdateAnimations()
+    {
+        if (eightController)
+            eightController.lookDirection = (rotationDestination - transform.position).normalized;
+    }
+
     protected virtual void OnDisable()
     {
         StartCoroutine(BeeManager.instance.BeeCaught(this));
         StartCoroutine(BeeManager.instance.BeeCaught(null));
     }
-
-
-    protected virtual void OnDrawGizmosSelected()
+    protected virtual void OnDrawGizmos()
     {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(destinationPos, 0.1f);
+        Gizmos.DrawLine(transform.position, destinationPos);
+
         Gizmos.color = Color.blue;
         Gizmos.DrawSphere(rotationDestination, 0.1f);
         Gizmos.DrawLine(transform.position, rotationDestination);
 
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(destinationPos, 0.1f);
-        Gizmos.DrawLine(transform.position, destinationPos);
     }
 }

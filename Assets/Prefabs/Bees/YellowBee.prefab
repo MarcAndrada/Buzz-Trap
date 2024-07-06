@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 134643906247065604}
   - component: {fileID: 3962883107293857521}
   - component: {fileID: 149208461852579059}
+  - component: {fileID: 378080344496444814}
+  - component: {fileID: 2149103331282556419}
   m_Layer: 6
   m_Name: YellowBee
   m_TagString: Bee
@@ -99,9 +101,52 @@ MonoBehaviour:
   movementSpeed: 1
   minDistanceFromDestination: 0.1
   chargeSpeed: 1.2
+  defendQueenSpeed: 2.4
   randomOffset: 8
   randomTimeNoQueenMinMax: {x: 2, y: 5}
   chargeDirection: {x: 0, y: 0, z: 0}
+--- !u!95 &378080344496444814
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4914135931280899209}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 52401d19b80047141a3d1e9b1e60a7b9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2149103331282556419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4914135931280899209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a46ecceff261ff148b16bcd03db43d2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lookDirection: {x: 0, y: 0, z: 0}
+  topAnimator: {fileID: 22100000, guid: 4ca0bfeaf8afa574397d754ed17be99a, type: 2}
+  topLeftAnimator: {fileID: 22100000, guid: d7b8669b49d764543baabd662246c811, type: 2}
+  leftAnimator: {fileID: 22100000, guid: f0a17b5c2f1ef404a88c10c53f5f3ffb, type: 2}
+  downLeftAnimator: {fileID: 22100000, guid: 776c6933fe5ec3e4f93ec6d0282e0dc4, type: 2}
+  downAnimator: {fileID: 22100000, guid: e88890f7da2ff254ab9e1f2484807d71, type: 2}
+  downRightAnimator: {fileID: 22100000, guid: 5858ff7cbbe799949990c2cf38bfb451, type: 2}
+  rightAnimator: {fileID: 22100000, guid: 56cc2728d353f0b49aa5a7fa74e7aaee, type: 2}
+  topRightAnimator: {fileID: 22100000, guid: c5083104b63b3b644b5ed2c847afad47, type: 2}
 --- !u!1 &8656683853776872544
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,7 +3,8 @@ public class YellowBee : Bee
 {
     [Space, Header("Yellow Bee"), SerializeField]
     protected float chargeSpeed;
-
+    [SerializeField]
+    protected float defendQueenSpeed;
     [SerializeField]
     protected float randomOffset;
 
@@ -13,7 +14,7 @@ public class YellowBee : Bee
     protected float timeWaited;
 
     [HideInInspector]
-    public Vector3 chargeDirection; 
+    public Vector3 chargeDirection;
 
     private void Start()
     {
@@ -31,34 +32,29 @@ public class YellowBee : Bee
         switch (BeeManager.instance.yellowBeesState)
         {
             case BeeManager.YellowBeesStates.PLACING:
-                MoveToDestiny(movementSpeed);
-                Rotate();
-                break;
             case BeeManager.YellowBeesStates.WAITING:
                 MoveToDestiny(movementSpeed);
-                Rotate();
                 break;
             case BeeManager.YellowBeesStates.CHARGING:
                 MoveToDestiny(chargeSpeed);
-                Rotate();
                 break;
             case BeeManager.YellowBeesStates.DRAG:
                 break;
             default:
                 break;
         }
+
+        
     }
     public void DefendQueenBehabiour()
     {
-        MoveToDestiny(movementSpeed);
-        Rotate();
+        MoveToDestiny(defendQueenSpeed);
     }
     public override void NoQueenBehaviour()
     {
         //Moverse Random
         WaitToGetRandomDestination();
         MoveToDestiny(movementSpeed);
-        Rotate();
     }
 
     private void WaitToGetRandomDestination() 
