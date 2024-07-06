@@ -32,8 +32,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.6876743, z: -0, w: 0.7260194}
   m_LocalPosition: {x: 2.1303277, y: 1.86, z: 0.585}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2189651452799412040}
   - {fileID: 8313194937580380913}
@@ -142,11 +142,11 @@ MonoBehaviour:
     type: 3}
   shotAction: {fileID: -3253370971727077831, guid: 7c7ea573683b40b48b25c778e7ce3612,
     type: 3}
-  moveSpeed: 2
+  moveSpeed: 4
   rollTime: 0.5
   forceRolling: 2
-  netDistance: 0.25
-  netAreaEffect: 0.3
+  netDistance: 0.45
+  netAreaEffect: 0.6
   netAffectedMask:
     serializedVersion: 2
     m_Bits: 64
@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a46ecceff261ff148b16bcd03db43d2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookDirection: {x: 0, y: 0}
+  lookDirection: {x: 0, y: 0, z: 0}
   topAnimator: {fileID: 22100000, guid: 1babd88c53d913c49b1c908f85778e10, type: 2}
   topLeftAnimator: {fileID: 22100000, guid: b1a0de3d6f60a6545a0d8244593ef3b7, type: 2}
   leftAnimator: {fileID: 22100000, guid: 3ca15c08c1289124ba8a85fa77b9c3a6, type: 2}

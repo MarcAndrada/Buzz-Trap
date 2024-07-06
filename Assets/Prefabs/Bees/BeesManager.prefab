@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8113150907038233810
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1953030099983606968}
+  - component: {fileID: 896092036009520078}
+  m_Layer: 0
+  m_Name: BeesManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1953030099983606968
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8113150907038233810}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10.943983, y: -3.0698564, z: -1.1082678}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &896092036009520078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8113150907038233810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a0d8f46be933fa48aa5bd2647542614, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  queenAlive: 1
+  player: {fileID: 0}
+  bees:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  queenPrefab: {fileID: 5601922992707350489, guid: 04f113756bd8e2b4caeed28efd95df2e,
+    type: 3}
+  playerDistanceNearQueen: 8
+  timeToSpawnNewQueen: 8.5
+  timeToSpawnNewBee: 6
+  canSpawnRedBees: 1
+  canSpawnBlackBees: 1
+  yellowBeesPrefab: {fileID: 4914135931280899209, guid: f6ca3ee07f32b194a873629dc1be16a5,
+    type: 3}
+  redBeesPrefab: {fileID: 1289968609936083907, guid: dde0f7d4a7c24684b83111528d36059f,
+    type: 3}
+  blackBeesPrefab: {fileID: 6915760059550507245, guid: 0a48c68779c442e409eea61024cbdf12,
+    type: 3}
+  beesPerRow: 3
+  beesPlayerOffset: 4.5
+  beesOffset: 1.4
+  yellowBeesPlacingDuration: 8
+  yellowBeesWaitingDuration: 1
+  yellowBeesChargeDuration: 2
+  yellowBeesDragDuration: 3
+  totalYellowBeesNearQueen: 6
+  yellowBeesDistanceFromQueen: 2.5
+  redBeesPlayerOffset: 6
