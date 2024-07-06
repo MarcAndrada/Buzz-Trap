@@ -32,15 +32,15 @@ public class YellowBee : Bee
         {
             case BeeManager.YellowBeesStates.PLACING:
                 MoveToDestiny(movementSpeed);
-                Rotate(rotationSpeed);
+                Rotate();
                 break;
             case BeeManager.YellowBeesStates.WAITING:
                 MoveToDestiny(movementSpeed);
-                Rotate(rotationSpeed);
+                Rotate();
                 break;
             case BeeManager.YellowBeesStates.CHARGING:
                 MoveToDestiny(chargeSpeed);
-                Rotate(rotationSpeed);
+                Rotate();
                 break;
             case BeeManager.YellowBeesStates.DRAG:
                 break;
@@ -51,14 +51,14 @@ public class YellowBee : Bee
     public void DefendQueenBehabiour()
     {
         MoveToDestiny(movementSpeed);
-        Rotate(rotationSpeed);
+        Rotate();
     }
     public override void NoQueenBehaviour()
     {
         //Moverse Random
         WaitToGetRandomDestination();
         MoveToDestiny(movementSpeed);
-        Rotate(rotationSpeed);
+        Rotate();
     }
 
     private void WaitToGetRandomDestination() 
@@ -69,18 +69,8 @@ public class YellowBee : Bee
             return;
 
         timeWaited = 0;
+        timeToSpawnRandomDestination = Random.Range(randomTimeNoQueenMinMax.x, randomTimeNoQueenMinMax.y);
         destinationPos = transform.position + new Vector3(Random.Range(-randomOffset, randomOffset), 0, Random.Range(-randomOffset, randomOffset));
         rotationDestination = destinationPos;
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(destinationPos, 0.1f);
-        Gizmos.DrawLine(transform.position, destinationPos);
-
-        //Gizmos.color = Color.blue;
-        //Gizmos.DrawSphere(rotationDestination, 0.1f);
-        //Gizmos.DrawLine(transform.position, rotationDestination);
     }
 }

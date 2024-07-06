@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class BeeManager : MonoBehaviour
 {
@@ -61,6 +62,9 @@ public class BeeManager : MonoBehaviour
     private int totalYellowBeesNearQueen;
     [SerializeField]
     private float yellowBeesDistanceFromQueen;
+
+    [Space, Header("Red Bees"), SerializeField]
+    private float redBeesPlayerOffset;
 
 
     private void Awake()
@@ -242,29 +246,12 @@ public class BeeManager : MonoBehaviour
 
             randNum = Random.Range(0f, 1f);
 
-            if (randNum <= 0.4f)
-            {
-                //Amarillas
+            if (randNum <= 0.65f) //Amarillas
                 prefab = yellowBeesPrefab;
-            }
-            else if (randNum <= 0.7f)
-            {
-                //Rojas
-                if (!canSpawnRedBees)
-                {
-                    prefab = redBeesPrefab;
-                }
-
-            }
-            else
-            {
-                //Negras
-                if (canSpawnBlackBees)
-                {
-                    prefab = blackBeesPrefab; 
-                }
-
-            }
+            else if (randNum <= 0.85f && canSpawnRedBees) //Rojas
+                prefab = redBeesPrefab;
+            else if (canSpawnBlackBees) //Negras
+                prefab = blackBeesPrefab; 
 
 
             if (prefab)
@@ -421,6 +408,15 @@ public class BeeManager : MonoBehaviour
             _bee.NoQueenBehaviour();
             return;
         }
+
+        float X = Mathf.Cos(_bee.angle);
+        float Z = Mathf.Sin(_bee.angle);
+        Vector3 newDestiny = player.transform.position + new Vector3(X, 0, Z) * redBeesPlayerOffset;
+        
+        _bee.SetDestination(newDestiny);
+        _bee.SetRotationDestiny(player.transform.position);
+
+        _bee.QueenBehaviour();
     }
     #endregion
 
@@ -432,13 +428,19 @@ public class BeeManager : MonoBehaviour
             _bee.NoQueenBehaviour();
             return;
         }
+
+        _bee.SetDestination(player.transform.position);
+        _bee.SetRotationDestiny(player.transform.position);
+        _bee.QueenBehaviour();
     }
     #endregion
 
-    public void BeeCaught(Bee _bee)
+    public IEnumerator BeeCaught(Bee _bee)
     {
+        yield return new WaitForEndOfFrame();
         //Borrar la abeja de la lista
         bees.Remove(_bee);
+        Destroy(_bee.gameObject);
         //Sumar algo al contador de abejas
 
         
