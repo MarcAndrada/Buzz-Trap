@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private InputActionReference netAction;
     [SerializeField] private InputActionReference shieldAction;
     [SerializeField] private InputActionReference shotAction;
+    [SerializeField] private InputActionReference aimAction;
 
     [Header("MoveVariables")]
     [SerializeField] private float moveSpeed;
@@ -28,6 +30,7 @@ public class PlayerController : MonoBehaviour
     [Header("ShootVariables")]
     [SerializeField] private GameObject bullet;
     [SerializeField] private float bulletForce;
+    [SerializeField] private float degreeIncrease;
 
     private Rigidbody rb;
     private Animator animator;
@@ -39,6 +42,11 @@ public class PlayerController : MonoBehaviour
 
     private bool invulnarability;
     private bool shieldActive;
+    private bool aiming;
+
+    private float degree;
+
+    private Vector2 aimDirection;
 
     private void Awake()
     {
@@ -51,6 +59,7 @@ public class PlayerController : MonoBehaviour
     {
         rollCurrentTime = 0;
         rollForce = 1;
+        degree = 0;
 
         invulnarability = false;
         shieldActive = false;
@@ -69,7 +78,8 @@ public class PlayerController : MonoBehaviour
         rollAction.action.started += RollAction;
         netAction.action.started += NetAction;
         shieldAction.action.started += ShieldAction;
-        shotAction.action.started += ShotAction;
+        shotAction.action.canceled += ShotAction;
+        aimAction.action.started += AimAction;
     }
 
     private void OnDisable()
@@ -81,7 +91,8 @@ public class PlayerController : MonoBehaviour
         rollAction.action.started -= RollAction;
         netAction.action.started -= NetAction;
         shieldAction.action.started -= ShieldAction;
-        shotAction.action.started -= ShotAction;
+        shotAction.action.canceled -= ShotAction;
+        aimAction.action.started -= AimAction;
     }
     #endregion
 
@@ -127,14 +138,25 @@ public class PlayerController : MonoBehaviour
 
     private void ShotAction(InputAction.CallbackContext obj)
     {
+        aiming = false;
         GameObject bulletCreated = Instantiate(bullet, transform.position, Quaternion.identity);
-        bulletCreated.GetComponent<Rigidbody>().AddForce(lastMovementDirection.x * bulletForce, 0, lastMovementDirection.y * bulletForce);
+        bulletCreated.GetComponent<Rigidbody>().AddForce(aimDirection.x * bulletForce, 0, aimDirection.y * bulletForce);
+        aimDirection = lastMovementDirection;
+        degree = 0;
+    }
+
+    private void AimAction(InputAction.CallbackContext obj)
+    {
+        aiming = true;
+        aimDirection = lastMovementDirection;
+        degree = 0;
     }
 
     private void Update()
     {
         IFrameRoll();
         Move();
+        Aiming();
     }
 
     private void Move()
@@ -153,6 +175,24 @@ public class PlayerController : MonoBehaviour
                 rollForce = 1;
                 rollCurrentTime = 0;
             }
+        }
+    }
+
+    private void Aiming()
+    {
+        if(aiming)
+        {
+            if (Input.GetAxis("Mouse Y") < 0)
+            {
+                degree -= degreeIncrease;
+            }
+            if (Input.GetAxis("Mouse Y") > 0)
+            {
+                degree += degreeIncrease;
+
+            }
+            Debug.Log(degree);
+            aimDirection = Quaternion.Euler(0, 0, degree) * aimDirection;
         }
     }
     private GameObject CheckForwardObject()
@@ -182,8 +222,16 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Bee") && !invulnarability)
         {
-            //Dañar al player
-            GetDamage();
+            if(shieldActive)
+            {
+                Destroy(transform.GetChild(0));
+                shieldActive = false;
+            }
+            else
+            {
+                //Dañar al player
+                GetDamage();
+            }
         }
     }
 
