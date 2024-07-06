@@ -7,8 +7,6 @@ public abstract class Bee : MonoBehaviour
     public BeeType beeType {  get; protected set; }
     [SerializeField]
     protected float movementSpeed;
-    [SerializeField]
-    protected float rotationSpeed;
     protected Vector3 destinationPos;
     protected Vector3 rotationDestination;
     [SerializeField]
@@ -20,17 +18,19 @@ public abstract class Bee : MonoBehaviour
     virtual protected void Awake()
     {
         rb = GetComponent<Rigidbody>();
+
+        rotationDestination = transform.position + Vector3.back;
     }
 
-    protected void MoveToDestiny(float _movementSpeed)
+    protected virtual void MoveToDestiny(float _movementSpeed)
     {
-        Vector3 distance = destinationPos - transform.position;
+        Vector3 direction = destinationPos - transform.position;
 
-        distance = distance.magnitude > 1f ? distance.normalized : distance;
+        direction = direction.magnitude > 1f ? direction.normalized : direction;
 
-        rb.velocity = distance * _movementSpeed * Time.fixedDeltaTime;
+        rb.velocity = direction * _movementSpeed;
     }
-    protected void Rotate(float _rotationSpeed)
+    protected void Rotate()
     {
         //if (Vector3.Distance(rotationDestination, transform.position) <= 0.1f)
         //    return;
@@ -65,6 +65,19 @@ public abstract class Bee : MonoBehaviour
 
     protected virtual void OnDisable()
     {
-        BeeManager.instance.BeeCaught(this);
+        StartCoroutine(BeeManager.instance.BeeCaught(this));
+        StartCoroutine(BeeManager.instance.BeeCaught(null));
+    }
+
+
+    protected virtual void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawSphere(rotationDestination, 0.1f);
+        Gizmos.DrawLine(transform.position, rotationDestination);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(destinationPos, 0.1f);
+        Gizmos.DrawLine(transform.position, destinationPos);
     }
 }

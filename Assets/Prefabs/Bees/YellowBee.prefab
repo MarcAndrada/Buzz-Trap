@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 149208461852579059}
   m_Layer: 6
   m_Name: YellowBee
-  m_TagString: Untagged
+  m_TagString: Bee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -12.605, y: -4.27, z: 2.804}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6215868879714925045}
@@ -54,7 +54,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.3
+  m_Radius: 0.15
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &3962883107293857521
 Rigidbody:
@@ -96,10 +96,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <beeType>k__BackingField: 1
-  movementSpeed: 45
-  rotationSpeed: 2.5
+  movementSpeed: 1
   minDistanceFromDestination: 0.1
-  chargeSpeed: 75
+  chargeSpeed: 1.2
   randomOffset: 8
   randomTimeNoQueenMinMax: {x: 2, y: 5}
   chargeDirection: {x: 0, y: 0, z: 0}
@@ -115,7 +114,7 @@ GameObject:
   - component: {fileID: 5503310397404634025}
   - component: {fileID: 4726022080303837788}
   m_Layer: 6
-  m_Name: GameObject
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -189,12 +188,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d60b574438150df4abc912af652d11ac, type: 3}
+  m_Sprite: {fileID: 1489079626, guid: d60b574438150df4abc912af652d11ac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 0.94035786}
+  m_Size: {x: 0.19628906, y: 0.17871094}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

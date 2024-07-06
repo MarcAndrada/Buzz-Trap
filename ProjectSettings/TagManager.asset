@@ -14,9 +14,9 @@ TagManager:
   - UI
   - Bee
   - Bullet
-  - 
-  - 
-  - 
+  - PlayerHitbox
+  - PlayerWall
+  - BeeBullet
   - 
   - 
   - 

@@ -1,24 +1,70 @@
+using UnityEngine;
+
 public class RedBee : Bee
 {
+    [Space, Header("Red Bee"), SerializeField]
+    private GameObject bulletPrefab;
+
+    public float angle {  get; private set; }
+    [SerializeField]
+    private float rotationSpeed;
+
+    [SerializeField]
+    private float shootCD;
+    private float timeShootWaited;
+
+    [SerializeField]
+    private float randomOffset;
+
+    private void Start()
+    {
+        angle = Random.Range(0f, 4f);
+        timeShootWaited = Random.Range(0, shootCD / 2);
+    }
+
     public override void NoQueenBehaviour()
     {
-        throw new System.NotImplementedException();
+        timeShootWaited += Time.fixedDeltaTime;
+
+        if (timeShootWaited >= shootCD)
+        {
+            //Generar punto random
+
+            destinationPos = transform.position;
+            rotationDestination = transform.position + new Vector3(Random.Range(-randomOffset, randomOffset), 0, Random.Range(-randomOffset, randomOffset));
+
+            timeShootWaited = 0;
+            Shoot();
+
+        }
+
     }
 
     public override void QueenBehaviour()
     {
-        throw new System.NotImplementedException();
+        angle += Time.fixedDeltaTime * rotationSpeed;
+
+        timeShootWaited += Time.fixedDeltaTime;
+
+        if (timeShootWaited >= shootCD)
+        {
+            timeShootWaited = 0;
+            Shoot();
+
+        }
+
+
+        MoveToDestiny(movementSpeed);
+        Rotate();
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Shoot()
     {
-        
+        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+
+        bullet.GetComponent<RedBeeBulletController>().bulletDirection = (rotationDestination - transform.position).normalized;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
+    
 }
