@@ -86,8 +86,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1489079626, guid: d60b574438150df4abc912af652d11ac, type: 3}
-  m_Color: {r: 1, g: 0.21226418, b: 0.21226418, a: 1}
+  m_Sprite: {fileID: 1489079626, guid: 5a94f22459698144dbb1e79c51390b62, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
@@ -108,7 +108,9 @@ GameObject:
   - component: {fileID: 3820303005523429000}
   - component: {fileID: 2073943141519837957}
   - component: {fileID: 2034956121181104198}
+  - component: {fileID: 4568088678620990208}
   - component: {fileID: 1301458029836241284}
+  - component: {fileID: 4222257392291707579}
   m_Layer: 6
   m_Name: RedBee
   m_TagString: Bee
@@ -180,6 +182,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!95 &4568088678620990208
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1289968609936083907}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 52401d19b80047141a3d1e9b1e60a7b9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &1301458029836241284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,3 +223,24 @@ MonoBehaviour:
   rotationSpeed: 0.6
   shootCD: 2.5
   randomOffset: 5
+--- !u!114 &4222257392291707579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1289968609936083907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a46ecceff261ff148b16bcd03db43d2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lookDirection: {x: 0, y: 0, z: 0}
+  topAnimator: {fileID: 22100000, guid: 6fffad7a5149ad446b44e691ce825518, type: 2}
+  topLeftAnimator: {fileID: 22100000, guid: 2c219b1bb79cd3746b94413c7a7a9aca, type: 2}
+  leftAnimator: {fileID: 22100000, guid: 50caaa4a25bad5247baf11bec0b829a6, type: 2}
+  downLeftAnimator: {fileID: 22100000, guid: 8fa889073e205de40946c6d17db65f9a, type: 2}
+  downAnimator: {fileID: 22100000, guid: c6f26cfad1614fe4b90c574af8f1d2a9, type: 2}
+  downRightAnimator: {fileID: 22100000, guid: b8bea291516f18f4a9c14074ad04f9c0, type: 2}
+  rightAnimator: {fileID: 22100000, guid: 88b9496e0b9e7ea459d13f792207ef97, type: 2}
+  topRightAnimator: {fileID: 22100000, guid: f5b1621d2c608cd46b722265a13dbb8f, type: 2}

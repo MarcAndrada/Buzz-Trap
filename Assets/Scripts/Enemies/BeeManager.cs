@@ -125,7 +125,7 @@ public class BeeManager : MonoBehaviour
                     break;
             }
 
-
+            bee.UpdateAnimations();
         }
 
         switch (yellowBeesState)

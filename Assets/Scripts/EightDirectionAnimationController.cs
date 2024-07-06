@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class EightDirectionAnimationController : MonoBehaviour
 {
-    public Vector2 lookDirection;
+    [HideInInspector]
+    public Vector3 lookDirection;
     public enum Direction { TOP, TOP_LEFT, TOP_RIGHT, DOWN, DOWN_LEFT, DOWN_RIGHT, LEFT, RIGHT }
 
     [SerializeField]
@@ -37,7 +38,7 @@ public class EightDirectionAnimationController : MonoBehaviour
 
     private Direction CheckLookingDirection()
     {
-        Vector3 lookDirection = new Vector3(this.lookDirection.x, transform.position.y, this.lookDirection.y);
+        Vector3 lookDirection = new Vector3(this.lookDirection.x, transform.position.y, this.lookDirection.z);
 
         float topDot = Vector3.Dot(lookDirection, Vector3.forward);
         float topLeftDot = Vector3.Dot(lookDirection, (Vector3.forward + Vector3.left).normalized);
