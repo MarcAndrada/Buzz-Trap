@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float netDistance;
     [SerializeField] private float netAreaEffect;
     [SerializeField] private LayerMask netAffectedMask;
+    [SerializeField] private Animator netAnimator;
 
     [Header("ShieldVariables")]
     [SerializeField] private GameObject shield;
@@ -124,6 +125,7 @@ public class PlayerController : MonoBehaviour
         {
             KillBee(foundObject);
         }
+        netAnimator.enabled = true;
     }
 
     private void ShieldAction(InputAction.CallbackContext obj)
