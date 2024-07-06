@@ -69,7 +69,7 @@ public abstract class Bee : MonoBehaviour
         StartCoroutine(BeeManager.instance.BeeCaught(this));
         StartCoroutine(BeeManager.instance.BeeCaught(null));
     }
-    protected virtual void OnDrawGizmos()
+    protected virtual void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawSphere(destinationPos, 0.1f);

@@ -25,15 +25,16 @@ public class EightDirectionAnimationController : MonoBehaviour
 
     private Animator animator;
 
+    public Direction direction;
     private void Awake()
     {
         animator = GetComponent<Animator>();
     }
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        Direction currentDirection = CheckLookingDirection();
-        ApplyCurrentAnimationController(currentDirection);
+        direction = CheckLookingDirection();
+        ApplyCurrentAnimationController(direction);
     }
 
     private Direction CheckLookingDirection()
@@ -67,7 +68,7 @@ public class EightDirectionAnimationController : MonoBehaviour
             return Direction.TOP_RIGHT;
     }
 
-    private void ApplyCurrentAnimationController(Direction _currentDirection)
+    public void ApplyCurrentAnimationController(Direction _currentDirection)
     {
         switch (_currentDirection)
         {

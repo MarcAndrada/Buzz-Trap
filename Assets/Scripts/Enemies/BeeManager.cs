@@ -205,7 +205,7 @@ public class BeeManager : MonoBehaviour
 
         timeQueenWaited += Time.fixedDeltaTime;
 
-        if (timeQueenWaited >= timeToSpawnNewQueen)
+        if (timeQueenWaited >= timeToSpawnNewQueen && bees.Count > 0)
         {
             StartCoroutine(SpawnNewQueen());
             timeQueenWaited = 0;

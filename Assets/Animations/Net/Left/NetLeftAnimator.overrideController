@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: NetLeftAnimator
+  m_Controller: {fileID: 9100000, guid: 213c49e48757ee540b215f5663f5735e, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 0193bd8eced4dce4989aff2f9735b3d7, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 37e7657aadfaf0048b893a05e4bc70f7, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: e452b46570e486f4e8d9b7400952a670, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 0f97af5b3bbdf9b41931fa96ff685ef6, type: 2}
