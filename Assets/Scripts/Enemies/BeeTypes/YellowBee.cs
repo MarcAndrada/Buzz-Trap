@@ -79,8 +79,8 @@ public class YellowBee : Bee
         Gizmos.DrawSphere(destinationPos, 0.1f);
         Gizmos.DrawLine(transform.position, destinationPos);
 
-        Gizmos.color = Color.blue;
-        Gizmos.DrawSphere(rotationDestination, 0.1f);
-        Gizmos.DrawLine(transform.position, rotationDestination);
+        //Gizmos.color = Color.blue;
+        //Gizmos.DrawSphere(rotationDestination, 0.1f);
+        //Gizmos.DrawLine(transform.position, rotationDestination);
     }
 }

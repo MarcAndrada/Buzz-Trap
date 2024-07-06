@@ -62,4 +62,9 @@ public abstract class Bee : MonoBehaviour
 
     public abstract void QueenBehaviour();
     public abstract void NoQueenBehaviour();
+
+    protected virtual void OnDisable()
+    {
+        BeeManager.instance.BeeCaught(this);
+    }
 }

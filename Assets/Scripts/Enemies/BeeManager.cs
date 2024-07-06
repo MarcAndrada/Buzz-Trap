@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BeeManager : MonoBehaviour
@@ -16,8 +18,28 @@ public class BeeManager : MonoBehaviour
 
 
     [Space, Header("Queen Bee"), SerializeField]
+    private GameObject queenPrefab;
+    [SerializeField]
     private float playerDistanceNearQueen;
     private int queenBeeId;
+    [SerializeField]
+    private float timeToSpawnNewQueen;
+    private float timeQueenWaited;
+    [SerializeField]
+    private float timeToSpawnNewBee;
+    private float timeSpawnBeeWaited;
+    
+    [Space, SerializeField]
+    private bool canSpawnRedBees;
+    [SerializeField]
+    private bool canSpawnBlackBees;
+
+    [Space, SerializeField]
+    private GameObject yellowBeesPrefab;
+    [SerializeField]
+    private GameObject redBeesPrefab;
+    [SerializeField]
+    private GameObject blackBeesPrefab;
 
     [Space, Header("Yellow Bees"), SerializeField]
     private int beesPerRow;
@@ -39,6 +61,8 @@ public class BeeManager : MonoBehaviour
     private int totalYellowBeesNearQueen;
     [SerializeField]
     private float yellowBeesDistanceFromQueen;
+
+
     private void Awake()
     {
         if (instance != null)
@@ -61,11 +85,14 @@ public class BeeManager : MonoBehaviour
         }
         yellowBeesState = YellowBeesStates.PLACING;
         yellowBeesTimeWaited = 0;
+
+        timeQueenWaited = 0;
     }
 
     private void FixedUpdate()
     {
         CheckIfQueenAlive();
+        WaitToSpawnNewQueen();
         CheckIfPlayerNearToQueen();
         BeesUpdate();
     }
@@ -136,8 +163,18 @@ public class BeeManager : MonoBehaviour
 
     }
 
+    #region Queen
+    private void QueenUpdate(QueenBee _bee)
+    {
+        WaitToSpawnNewBee();
+        if (Input.GetKeyDown(KeyCode.P))
+            Destroy(_bee.gameObject);
+    }
     private void CheckIfQueenAlive()
     {
+        if (!queenAlive)
+            return;
+
         queenBeeId = -1;
 
         for (int i = 0; i < bees.Count; i++)
@@ -158,15 +195,94 @@ public class BeeManager : MonoBehaviour
         else
             nearToQueen = false;
     }
-    private void QueenUpdate(QueenBee _bee)
+    private void WaitToSpawnNewQueen()
     {
-        if (!queenAlive)
-        {
-            _bee.NoQueenBehaviour();
+        if (queenAlive)
             return;
+
+        timeQueenWaited += Time.fixedDeltaTime;
+
+        if (timeQueenWaited >= timeToSpawnNewQueen)
+        {
+            StartCoroutine(SpawnNewQueen());
+            timeQueenWaited = 0;
+            timeSpawnBeeWaited = 0;
+            queenAlive = true;
+        }
+    }
+    private IEnumerator SpawnNewQueen()
+    {
+        yield return new WaitForEndOfFrame();
+        int newQueenId = Random.Range(0, bees.Count);
+
+        GameObject newQueen = Instantiate(queenPrefab, bees[newQueenId].transform.position, Quaternion.identity);
+        GameObject oldBee = bees[newQueenId].gameObject;
+        bees[newQueenId] = newQueen.GetComponent<Bee>();
+        Destroy(oldBee);
+
+    }
+    private void WaitToSpawnNewBee()
+    {
+        timeSpawnBeeWaited += Time.fixedDeltaTime;
+
+        if (timeSpawnBeeWaited >= timeToSpawnNewBee)
+        {
+            StartCoroutine(SpawnNewBee());
+            timeSpawnBeeWaited = 0;
         }
     }
 
+    private IEnumerator SpawnNewBee()
+    {
+        float randNum;
+        GameObject prefab = null;
+
+        for (int i = 0; i < 10; i++)
+        {
+
+            randNum = Random.Range(0f, 1f);
+
+            if (randNum <= 0.4f)
+            {
+                //Amarillas
+                prefab = yellowBeesPrefab;
+            }
+            else if (randNum <= 0.7f)
+            {
+                //Rojas
+                if (!canSpawnRedBees)
+                {
+                    prefab = redBeesPrefab;
+                }
+
+            }
+            else
+            {
+                //Negras
+                if (canSpawnBlackBees)
+                {
+                    prefab = blackBeesPrefab; 
+                }
+
+            }
+
+
+            if (prefab)
+                break;
+        }
+
+        if (!prefab)
+            prefab = yellowBeesPrefab;
+
+        yield return new WaitForEndOfFrame();
+
+        GameObject newBee = Instantiate(prefab, bees[queenBeeId].transform.position, Quaternion.identity);
+
+        bees.Add(newBee.GetComponent<Bee>());
+    }
+    #endregion
+
+    #region Yellow
     private void YellowBeesUpdate(YellowBee _bee, int _beeId)
     {
 
@@ -295,8 +411,9 @@ public class BeeManager : MonoBehaviour
         Vector3 resultPos = player.transform.position + destinyPos;
         return resultPos;  
     }
-    
+    #endregion
 
+    #region Red
     private void RedBeesUpdate(RedBee _bee)
     {
         if (!queenAlive)
@@ -305,7 +422,9 @@ public class BeeManager : MonoBehaviour
             return;
         }
     }
+    #endregion
 
+    #region Black
     private void BlackBeesUpdate(BlackBee _bee)
     {
         if (!queenAlive)
@@ -314,10 +433,26 @@ public class BeeManager : MonoBehaviour
             return;
         }
     }
+    #endregion
 
-
-
-    private void OnDrawGizmos()
+    public void BeeCaught(Bee _bee)
     {
+        //Borrar la abeja de la lista
+        bees.Remove(_bee);
+        //Sumar algo al contador de abejas
+
+        
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (queenBeeId == -1)
+            return;
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(bees[queenBeeId].transform.position, yellowBeesDistanceFromQueen);
+
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireSphere(bees[queenBeeId].transform.position, playerDistanceNearQueen);
+
     }
 }
