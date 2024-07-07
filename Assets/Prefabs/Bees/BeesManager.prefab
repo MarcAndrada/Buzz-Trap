@@ -59,6 +59,8 @@ MonoBehaviour:
   playerDistanceNearQueen: 8
   timeToSpawnNewQueen: 8.5
   timeToSpawnNewBee: 3.5
+  catchParticles: {fileID: 6700400363623037506, guid: ec6722221b9629a46bd0896b8fc09787,
+    type: 3}
   canSpawnRedBees: 1
   canSpawnBlackBees: 1
   yellowBeesPrefab: {fileID: 4914135931280899209, guid: f6ca3ee07f32b194a873629dc1be16a5,

@@ -27,7 +27,7 @@ public class RedBeeBulletController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<PlayerController>(); //Hacer daño
+            other.GetComponent<PlayerController>().GetDamage(); //Hacer daño
             Destroy(gameObject);
         }
     }

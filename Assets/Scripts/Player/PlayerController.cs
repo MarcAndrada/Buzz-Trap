@@ -26,14 +26,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator netAnimator;
     private float netCDWaited;
     [SerializeField] private float netCD;
+    [SerializeField] private ParticleSystem netSlashParticles;
 
     [Header("ShieldVariables")]
     [SerializeField] private GameObject shield;
-
+    private GameObject existingShield;
     [Header("ShootVariables")]
     [SerializeField] private GameObject bullet;
     [SerializeField] private float bulletForce;
     [SerializeField] private float degreeIncrease;
+
+    [Space, Header("Health")]
+    [SerializeField] private GameObject loseHealthParticles;
 
     private Rigidbody rb;
     private Animator animator;
@@ -126,13 +130,14 @@ public class PlayerController : MonoBehaviour
     {
         if (netCDWaited < netCD)
             return;
-        GameObject foundObject = CheckForwardObject();
-        if (foundObject)
-        {
-            KillBee(foundObject);
-        }
+        RaycastHit[] foundObjects = CheckForwardObjects();
+        foreach (RaycastHit item in foundObjects)
+            KillBee(item.collider.gameObject);
         netAnimator.enabled = true;
         netCDWaited = 0;
+        netSlashParticles.gameObject.SetActive(true);
+        netSlashParticles.transform.rotation = Quaternion.LookRotation(Vector3.up, new Vector3(-lastMovementDirection.x, 0 , -lastMovementDirection.y));
+        netSlashParticles.Play();
     }
 
     private void ShieldAction(InputAction.CallbackContext obj)
@@ -140,8 +145,9 @@ public class PlayerController : MonoBehaviour
         if(!shieldActive)
         {
             shieldActive = true;
-            GameObject shieldCreated = Instantiate(shield, transform.position, Quaternion.identity);
-            shieldCreated.transform.SetParent(transform, true);
+            existingShield = Instantiate(shield, transform.position, Quaternion.identity);
+            existingShield.transform.SetParent(transform, true);
+            existingShield.transform.forward = Vector3.up;
         }
     }
 
@@ -211,14 +217,11 @@ public class PlayerController : MonoBehaviour
             aimDirection = Quaternion.Euler(0, 0, degree) * aimDirection;
         }
     }
-    private GameObject CheckForwardObject()
+    private RaycastHit[] CheckForwardObjects()
     {
         Ray netRaycast = new Ray(transform.position, new Vector3(lastMovementDirection.x, 0, lastMovementDirection.y));
         RaycastHit[] hits = Physics.SphereCastAll(netRaycast, netAreaEffect, netDistance, netAffectedMask);
-        if (hits.Length > 0)
-            return hits[0].collider.gameObject;
-
-        return null;
+        return hits;
     }
 
     private void KillBee(GameObject _foundObject)
@@ -229,30 +232,24 @@ public class PlayerController : MonoBehaviour
 
     public void GetDamage()
     {
+        if (invulnarability)
+            return;
+        if(shieldActive)
+        {
+            shieldActive = false;
+            Destroy(existingShield);
+            return;
+        }
+
         //Quitar 1 de vida
         Debug.Log("Me hacen daño");
+        Instantiate(loseHealthParticles, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), Quaternion.identity);
         //Empezar el tiempo de invulnerabilidad
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Bee") && !invulnarability)
-        {
-            if(shieldActive)
-            {
-                Destroy(transform.GetChild(0));
-                shieldActive = false;
-            }
-            else
-            {
-                //Dañar al player
-                GetDamage();
-            }
-        }
+    
     }
 
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position + new Vector3(lastMovementDirection.x, 0, lastMovementDirection.y) * netDistance, netAreaEffect);

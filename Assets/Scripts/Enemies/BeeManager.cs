@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class BeeManager : MonoBehaviour
 {
@@ -16,8 +14,6 @@ public class BeeManager : MonoBehaviour
     private GameObject player;
     [SerializeField]
     private List<Bee> bees;
-
-
     [Space, Header("Queen Bee"), SerializeField]
     private GameObject queenPrefab;
     [SerializeField]
@@ -25,10 +21,12 @@ public class BeeManager : MonoBehaviour
     private int queenBeeId;
     [SerializeField]
     private float timeToSpawnNewQueen;
-    private float timeQueenWaited;
     [SerializeField]
     private float timeToSpawnNewBee;
     private float timeSpawnBeeWaited;
+    private float timeQueenWaited;
+    [SerializeField]
+    private GameObject catchParticles;
     
     [Space, SerializeField]
     private bool canSpawnRedBees;
@@ -440,6 +438,7 @@ public class BeeManager : MonoBehaviour
     }
     public IEnumerator BeeCaught(Bee _bee)
     {
+        Instantiate(catchParticles, _bee.transform.position, Quaternion.identity);
         yield return new WaitForEndOfFrame();
         //Borrar la abeja de la lista
         bees.Remove(_bee);

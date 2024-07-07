@@ -63,6 +63,15 @@ public abstract class Bee : MonoBehaviour
         if (eightController)
             eightController.lookDirection = (rotationDestination - transform.position).normalized;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            other.GetComponent<PlayerController>().GetDamage();
+        }
+    }
+
     protected virtual void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;

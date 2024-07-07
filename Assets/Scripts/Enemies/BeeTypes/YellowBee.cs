@@ -70,11 +70,5 @@ public class YellowBee : Bee
         rotationDestination = destinationPos;
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            other.GetComponent<PlayerController>().GetDamage();
-        }
-    }
+    
 }
