@@ -218,11 +218,16 @@ MonoBehaviour:
   <beeType>k__BackingField: 2
   movementSpeed: 4
   minDistanceFromDestination: 0.1
+  stunned: 0
+  stunDuration: 2
+  spawnClip: {fileID: 8300000, guid: 7a79499f9cabd854ebd93f0a25c3b83f, type: 3}
+  caughtClip: {fileID: 8300000, guid: 7a79499f9cabd854ebd93f0a25c3b83f, type: 3}
   bulletPrefab: {fileID: 8800407924787477731, guid: d38040c2209d29945a0dc835e202e8d0,
     type: 3}
   rotationSpeed: 0.6
   shootCD: 2.5
   randomOffset: 5
+  shootClip: {fileID: 8300000, guid: 80db07f611102fd4e97711f1ac77d5d0, type: 3}
 --- !u!114 &4222257392291707579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,3 +249,4 @@ MonoBehaviour:
   downRightAnimator: {fileID: 22100000, guid: b8bea291516f18f4a9c14074ad04f9c0, type: 2}
   rightAnimator: {fileID: 22100000, guid: 88b9496e0b9e7ea459d13f792207ef97, type: 2}
   topRightAnimator: {fileID: 22100000, guid: f5b1621d2c608cd46b722265a13dbb8f, type: 2}
+  direction: 0

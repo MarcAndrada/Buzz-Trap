@@ -15,6 +15,8 @@ public class RedBee : Bee
 
     [SerializeField]
     private float randomOffset;
+    [SerializeField]
+    protected AudioClip shootClip;
 
     private void Start()
     {
@@ -62,6 +64,8 @@ public class RedBee : Bee
         GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
 
         bullet.GetComponent<RedBeeBulletController>().bulletDirection = (rotationDestination - transform.position).normalized;
+
+        AudioManager.instance.Play3dOneShotSound(shootClip, "Master", 15f, transform.position, 1.5f);
     }
 
 

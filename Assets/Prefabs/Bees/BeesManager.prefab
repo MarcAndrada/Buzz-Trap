@@ -59,6 +59,7 @@ MonoBehaviour:
   playerDistanceNearQueen: 8
   timeToSpawnNewQueen: 8.5
   timeToSpawnNewBee: 2.5
+  maxBees: 25
   catchParticles: {fileID: 6700400363623037506, guid: ec6722221b9629a46bd0896b8fc09787,
     type: 3}
   canSpawnRedBees: 1

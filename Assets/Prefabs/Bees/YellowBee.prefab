@@ -100,6 +100,10 @@ MonoBehaviour:
   <beeType>k__BackingField: 1
   movementSpeed: 3
   minDistanceFromDestination: 0.1
+  stunned: 0
+  stunDuration: 2
+  spawnClip: {fileID: 8300000, guid: 7a79499f9cabd854ebd93f0a25c3b83f, type: 3}
+  caughtClip: {fileID: 8300000, guid: 7a79499f9cabd854ebd93f0a25c3b83f, type: 3}
   chargeSpeed: 5
   defendQueenSpeed: 7.5
   randomOffset: 8
@@ -147,6 +151,7 @@ MonoBehaviour:
   downRightAnimator: {fileID: 22100000, guid: 5858ff7cbbe799949990c2cf38bfb451, type: 2}
   rightAnimator: {fileID: 22100000, guid: 56cc2728d353f0b49aa5a7fa74e7aaee, type: 2}
   topRightAnimator: {fileID: 22100000, guid: c5083104b63b3b644b5ed2c847afad47, type: 2}
+  direction: 0
 --- !u!1 &8656683853776872544
 GameObject:
   m_ObjectHideFlags: 0

@@ -147,6 +147,10 @@ MonoBehaviour:
   <beeType>k__BackingField: 0
   movementSpeed: 0
   minDistanceFromDestination: 0
+  stunned: 0
+  stunDuration: 0
+  spawnClip: {fileID: 8300000, guid: 5abbe48bdd328e74b92fa49a6227e411, type: 3}
+  caughtClip: {fileID: 8300000, guid: 5abbe48bdd328e74b92fa49a6227e411, type: 3}
 --- !u!135 &1841233888897173855
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -150,30 +150,40 @@ MonoBehaviour:
   bombAction: {fileID: 1769661364549417754, guid: 7c7ea573683b40b48b25c778e7ce3612,
     type: 3}
   moveSpeed: 4
+  footsteps: []
   rollTime: 0.5
   forceRolling: 2
-  netDistance: 0.45
-  netAreaEffect: 1.25
+  rollClip: {fileID: 8300000, guid: 5c880020b74107d41b0ee3b62217f2f4, type: 3}
+  netDistance: 0.7
+  netAreaEffect: 1.5
   netAffectedMask:
     serializedVersion: 2
     m_Bits: 64
   netAnimator: {fileID: 8323144274180458115}
-  netCD: 1.5
+  netCD: 1.2
   netSlashParticles: {fileID: 1601429775269905804}
+  netAttackClip: {fileID: 8300000, guid: 7a79499f9cabd854ebd93f0a25c3b83f, type: 3}
   shield: {fileID: 1890606197307065325, guid: 28e8f4d8adc1bcb4c9b5dc749cdcd620, type: 3}
   shieldCD: 15
   shieldUiCd: {fileID: 0}
+  shieldActivationClip: {fileID: 8300000, guid: 2653e1511b51c8840a5e185162475ee3,
+    type: 3}
+  shieldDisableClip: {fileID: 8300000, guid: 9843c237d2c1a98429647692ba0aa632, type: 3}
   bullet: {fileID: 2954930505767692289, guid: 2dbfe473e8a62424ca52ec24df24de9e, type: 3}
   netShootCD: 4
   netUiCd: {fileID: 0}
+  netShootClip: {fileID: 8300000, guid: 7cbe326a95a4d6e43afff8cb0f90b841, type: 3}
   loseHealthParticles: {fileID: 6855314210357232287, guid: 15bca29274da89a4d9bfb418a1208b1c,
     type: 3}
   hitInvulnerabilityDuration: 3
   maxHealt: 5
+  healthUI: {fileID: 0}
   deadCanvas: {fileID: 0}
+  sonCamera: {fileID: 0}
   smoke: {fileID: 8137409697439305036, guid: 533fc3fb3abf80a49b840c4cf2f65fb8, type: 3}
   smokeCD: 10
   smokeBombUiCd: {fileID: 0}
+  smokeClip: {fileID: 8300000, guid: 7cbe326a95a4d6e43afff8cb0f90b841, type: 3}
 --- !u!114 &4289786375965520010
 MonoBehaviour:
   m_ObjectHideFlags: 0

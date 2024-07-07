@@ -15,7 +15,11 @@ public abstract class Bee : MonoBehaviour
     [SerializeField]
     private float stunDuration;
     private float stunTimeWaited;
-    
+
+    [Space, SerializeField]
+    protected AudioClip spawnClip;
+    [SerializeField]
+    protected AudioClip caughtClip;
 
     public Rigidbody rb {  get; protected set; }
     protected EightDirectionAnimationController eightController;
@@ -75,6 +79,17 @@ public abstract class Bee : MonoBehaviour
     {
         if (eightController)
             eightController.lookDirection = (rotationDestination - transform.position).normalized;
+    }
+
+
+    protected virtual void OnEnable()
+    {
+        AudioManager.instance.Play3dOneShotSound(spawnClip, "Master", 6f, transform.position, 1.5f);
+    }
+
+    protected void OnDisable()
+    {
+        AudioManager.instance.Play3dOneShotSound(caughtClip, "Master", 6f, transform.position, 1.5f);
     }
 
     private void OnTriggerEnter(Collider other)

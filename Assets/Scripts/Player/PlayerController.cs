@@ -17,10 +17,14 @@ public class PlayerController : MonoBehaviour
 
     [Header("MoveVariables")]
     [SerializeField] private float moveSpeed;
+    [SerializeField]
+    private AudioClip[] footsteps;
 
     [Header("RollVariables")]
     [SerializeField] private float rollTime;
     [SerializeField] private float forceRolling;
+    [SerializeField]
+    private AudioClip rollClip;
 
     [Header("NetVariables")]
     [SerializeField] private float netDistance;
@@ -30,6 +34,8 @@ public class PlayerController : MonoBehaviour
     private float netCDWaited;
     [SerializeField] private float netCD;
     [SerializeField] private ParticleSystem netSlashParticles;
+    [SerializeField]
+    protected AudioClip netAttackClip;
 
     [Header("ShieldVariables")]
     [SerializeField] private GameObject shield;
@@ -39,6 +45,10 @@ public class PlayerController : MonoBehaviour
     private float shieldTimeWaited;
     [SerializeField]
     private UICooldownController shieldUiCd;
+    [SerializeField]
+    private AudioClip shieldActivationClip;
+    [SerializeField]
+    private AudioClip shieldDisableClip;
 
     [Header("ShootVariables")]
     [SerializeField] private GameObject bullet;
@@ -47,6 +57,8 @@ public class PlayerController : MonoBehaviour
     private float netShootTimeWaited;
     [SerializeField]
     private UICooldownController netUiCd;
+    [SerializeField]
+    private AudioClip netShootClip;
 
     [Space, Header("Health")]
     [SerializeField] private GameObject loseHealthParticles;
@@ -61,6 +73,7 @@ public class PlayerController : MonoBehaviour
     private GameObject deadCanvas;
     [SerializeField]
     private GameObject sonCamera;
+
     [Header("SmokeVariables")]
     [SerializeField] private GameObject smoke;
     [SerializeField]
@@ -68,7 +81,8 @@ public class PlayerController : MonoBehaviour
     private float smokeTimeWaited;
     [SerializeField]
     private UICooldownController smokeBombUiCd;
-
+    [SerializeField]
+    private AudioClip smokeClip;
 
     private Rigidbody rb;
     private Animator animator;
@@ -160,6 +174,8 @@ public class PlayerController : MonoBehaviour
             rb.velocity *= rollForce;
 
             animator.SetTrigger("Roll");
+            AudioManager.instance.Play2dOneShotSound(rollClip, "Master", 1.2f);
+
         }
     }
 
@@ -175,6 +191,7 @@ public class PlayerController : MonoBehaviour
         netSlashParticles.gameObject.SetActive(true);
         netSlashParticles.transform.rotation = Quaternion.LookRotation(Vector3.up, new Vector3(-lastMovementDirection.x, 0, -lastMovementDirection.y));
         netSlashParticles.Play();
+        AudioManager.instance.Play2dOneShotSound(netAttackClip, "Master", 1.5f);
     }
 
     private void ShieldAction(InputAction.CallbackContext obj)
@@ -190,6 +207,8 @@ public class PlayerController : MonoBehaviour
         existingShield.transform.forward = Vector3.up;
         animator.SetTrigger("Spin");
         shieldTimeWaited = 0;
+        AudioManager.instance.Play2dOneShotSound(shieldActivationClip, "Master", 1.5f);
+
     }
 
     private void ShotAction(InputAction.CallbackContext obj)
@@ -204,6 +223,7 @@ public class PlayerController : MonoBehaviour
         Vector2 shootDirection = lastMovementDirection.normalized;
         bulletCreated.direction = new Vector3(shootDirection.x, 0, shootDirection.y);
         netShootTimeWaited = 0;
+        AudioManager.instance.Play2dOneShotSound(netShootClip, "Master", 1.5f);
     }
 
     private void AimAction(InputAction.CallbackContext obj)
@@ -224,6 +244,7 @@ public class PlayerController : MonoBehaviour
         bomb.SetParent(gameObject);
         animator.SetTrigger("Spin");
         smokeTimeWaited = 0;
+        AudioManager.instance.Play2dOneShotSound(smokeClip, "Master", 1.5f);
     }
     #endregion
 
@@ -311,6 +332,7 @@ public class PlayerController : MonoBehaviour
         if (shieldActive)
         {
             shieldActive = false;
+            AudioManager.instance.Play2dOneShotSound(shieldDisableClip, "Master", 1.5f);
             Destroy(existingShield);
             return;
         }
@@ -344,6 +366,10 @@ public class PlayerController : MonoBehaviour
         return true;
     }
 
+    public void PlayFootstep()
+    {
+        AudioManager.instance.PlayOneShotRandomSound2d(footsteps, "Master", 0.7f);
+    }
 
     private void OnDrawGizmosSelected()
     {

@@ -197,6 +197,10 @@ MonoBehaviour:
   <beeType>k__BackingField: 3
   movementSpeed: 3.5
   minDistanceFromDestination: 0.3
+  stunned: 0
+  stunDuration: 2
+  spawnClip: {fileID: 8300000, guid: 7a79499f9cabd854ebd93f0a25c3b83f, type: 3}
+  caughtClip: {fileID: 8300000, guid: 7a79499f9cabd854ebd93f0a25c3b83f, type: 3}
   randomOffset: 6
   randomTimeNoQueenMinMax: {x: 1, y: 3}
 --- !u!95 &8345812568928269601
@@ -241,3 +245,4 @@ MonoBehaviour:
   downRightAnimator: {fileID: 22100000, guid: 0c0e63a1cc97b0247b049f27f807bebf, type: 2}
   rightAnimator: {fileID: 22100000, guid: fe4c89afeceaf36439b4d6a5ece9e849, type: 2}
   topRightAnimator: {fileID: 22100000, guid: f56fd2a2209a37f4caaeb3c4b0dcc26f, type: 2}
+  direction: 0

@@ -25,6 +25,9 @@ public class BeeManager : MonoBehaviour
     private float timeToSpawnNewBee;
     private float timeSpawnBeeWaited;
     private float timeQueenWaited;
+
+    [Space, SerializeField]
+    private int maxBees;
     [SerializeField]
     private GameObject catchParticles;
     
@@ -228,13 +231,15 @@ public class BeeManager : MonoBehaviour
 
         if (timeSpawnBeeWaited >= timeToSpawnNewBee)
         {
-            StartCoroutine(SpawnNewBee());
+            StartCoroutine(SpawnNewBee(bees[queenBeeId].transform.position));
             timeSpawnBeeWaited = 0;
         }
     }
 
-    private IEnumerator SpawnNewBee()
+    public IEnumerator SpawnNewBee(Vector3 _spawnPos)
     {
+
+
         float randNum;
         GameObject prefab = null;
 
@@ -260,9 +265,11 @@ public class BeeManager : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
 
-        GameObject newBee = Instantiate(prefab, bees[queenBeeId].transform.position, Quaternion.identity);
-
-        bees.Add(newBee.GetComponent<Bee>());
+        if (bees.Count <= maxBees)
+        {
+            GameObject newBee = Instantiate(prefab, _spawnPos, Quaternion.identity);
+            bees.Add(newBee.GetComponent<Bee>());
+        }
     }
     #endregion
 
