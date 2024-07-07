@@ -444,7 +444,7 @@ public class BeeManager : MonoBehaviour
         bees.Remove(_bee);
         Destroy(_bee.gameObject);
         //Sumar algo al contador de abejas
-
+        BeesCounterController.Instance.AddCaughBee();
         
     }
 

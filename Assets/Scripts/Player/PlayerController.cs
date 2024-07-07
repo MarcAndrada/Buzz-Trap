@@ -1,4 +1,5 @@
 using Unity.Burst.Intrinsics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -33,15 +34,33 @@ public class PlayerController : MonoBehaviour
     [Header("ShieldVariables")]
     [SerializeField] private GameObject shield;
     private GameObject existingShield;
+    [SerializeField]
+    private float shieldCD;
+    private float shieldTimeWaited;
+    [SerializeField]
+    private UICooldownController shieldUiCd;
+
     [Header("ShootVariables")]
     [SerializeField] private GameObject bullet;
-    [SerializeField] private float bulletForce;
+    [SerializeField]
+    private float netShootCD;
+    private float netShootTimeWaited;
+    [SerializeField]
+    private UICooldownController netUiCd;
 
     [Space, Header("Health")]
     [SerializeField] private GameObject loseHealthParticles;
+    [SerializeField] private float hitInvulnerabilityDuration;
+    private float timeWaitedHit;
 
     [Header("SmokeVariables")]
     [SerializeField] private GameObject smoke;
+    [SerializeField]
+    private float smokeCD;
+    private float smokeTimeWaited;
+    [SerializeField]
+    private UICooldownController smokeBombUiCd;
+
 
     private Rigidbody rb;
     private Animator animator;
@@ -52,11 +71,9 @@ public class PlayerController : MonoBehaviour
     private float rollForce;
 
     private bool invulnarability;
+    private bool rolling;
     private bool shieldActive;
     private bool aiming;
-
-    private Vector3 aimDirection;
-    private Camera mainCamera;
 
     private void Awake()
     {
@@ -75,7 +92,12 @@ public class PlayerController : MonoBehaviour
         lastMovementDirection = Vector2.down;
         animationController.lookDirection = lastMovementDirection;
 
-        mainCamera = Camera.main;
+        shieldUiCd.maxTime = shieldCD;
+        shieldTimeWaited = shieldCD;
+        smokeBombUiCd.maxTime = smokeCD;
+        smokeTimeWaited = smokeCD;
+        netUiCd.maxTime = netShootCD;
+        netShootTimeWaited = netShootCD;
 
     }
 
@@ -111,21 +133,18 @@ public class PlayerController : MonoBehaviour
 
     private void WalkAction(InputAction.CallbackContext obj)
     {
-        if (!aiming)
-        {
-            movementDirection = obj.ReadValue<Vector2>();
-            animator.SetFloat("Movement", movementDirection.magnitude);
-            if (movementDirection != Vector2.zero)
-                lastMovementDirection = movementDirection;
+        movementDirection = obj.ReadValue<Vector2>();
+        animator.SetFloat("Movement", movementDirection.magnitude);
+        if (movementDirection != Vector2.zero)
+            lastMovementDirection = movementDirection;
 
         animationController.lookDirection = new Vector3(lastMovementDirection.x, 0, lastMovementDirection.y);
     }
-
     private void RollAction(InputAction.CallbackContext obj)
     {
-        if(!invulnarability)
+        if (!rolling)
         {
-            invulnarability = true;
+            rolling = true;
             rollForce = forceRolling;
 
             rb.velocity *= rollForce;
@@ -144,70 +163,70 @@ public class PlayerController : MonoBehaviour
         netAnimator.enabled = true;
         netCDWaited = 0;
         netSlashParticles.gameObject.SetActive(true);
-        netSlashParticles.transform.rotation = Quaternion.LookRotation(Vector3.up, new Vector3(-lastMovementDirection.x, 0 , -lastMovementDirection.y));
+        netSlashParticles.transform.rotation = Quaternion.LookRotation(Vector3.up, new Vector3(-lastMovementDirection.x, 0, -lastMovementDirection.y));
         netSlashParticles.Play();
     }
 
     private void ShieldAction(InputAction.CallbackContext obj)
     {
-        if(!shieldActive)
-        {
-            shieldActive = true;
-            existingShield = Instantiate(shield, transform.position, Quaternion.identity);
-            existingShield.transform.SetParent(transform, true);
-            existingShield.transform.forward = Vector3.up;
-        }
+        if (shieldCD > shieldTimeWaited)
+            return;
+        if (shieldActive)
+            return;
+
+        shieldActive = true;
+        existingShield = Instantiate(shield, transform.position, Quaternion.identity);
+        existingShield.transform.SetParent(transform, true);
+        existingShield.transform.forward = Vector3.up;
+        animator.SetTrigger("Spin");
+        shieldTimeWaited = 0;
     }
 
     private void ShotAction(InputAction.CallbackContext obj)
     {
+        if (!aiming)
+            return;
+
         aiming = false;
 
-        GameObject bulletCreated = Instantiate(bullet, transform.position, Quaternion.identity);
+        Bullet bulletCreated = Instantiate(bullet, transform.position, Quaternion.identity).GetComponent<Bullet>();
 
-        Vector3 shootDirection = aimDirection.normalized;
-
-        bulletCreated.GetComponent<Rigidbody>().AddForce(new Vector3(shootDirection.x, 0, shootDirection.z) * bulletForce, ForceMode.VelocityChange);
-        bulletCreated.GetComponent<Bullet>().SetParent(gameObject);
-
-        aimDirection = lastMovementDirection;
+        Vector2 shootDirection = lastMovementDirection.normalized;
+        bulletCreated.direction = new Vector3(shootDirection.x, 0, shootDirection.y);
+        netShootTimeWaited = 0;
     }
 
     private void AimAction(InputAction.CallbackContext obj)
     {
+
+        if (netShootCD > netShootTimeWaited)
+            return;
         aiming = true;
-
-        Vector3 mousePosition = Input.mousePosition;
-        Ray ray = mainCamera.ScreenPointToRay(mousePosition);
-
-        if (ray.direction.y != 0)
-        {
-            float distance = -ray.origin.y / ray.direction.y;
-            Vector3 hitPoint = ray.origin + ray.direction * distance;
-            hitPoint.y = 0; 
-            Debug.DrawLine(transform.position, hitPoint, Color.red);
-
-            aimDirection = (hitPoint - transform.position).normalized;
-        }
     }
 
     private void BombAction(InputAction.CallbackContext obj)
     {
-        Instantiate(smoke, transform.position, Quaternion.identity);
+        if (smokeCD > smokeTimeWaited)
+            return;
+
+        SmokeBomb bomb = Instantiate(smoke, transform.position, Quaternion.identity).GetComponent<SmokeBomb>();
+
+        bomb.SetParent(gameObject);
+        animator.SetTrigger("Spin");
+        smokeTimeWaited = 0;
     }
 
     private void Update()
     {
+        WaitMierdonesCD();
         WaitNetCD();
-        IFrameRoll();
+        IFrames();
         Move();
-        Aiming();
-
     }
 
     private void Move()
     {
-        if(!aiming)
+        if (!aiming)
         {
             rb.velocity = new Vector3(movementDirection.x, 0, movementDirection.y) * moveSpeed * rollForce;
         }
@@ -217,43 +236,50 @@ public class PlayerController : MonoBehaviour
             animator.SetFloat("Movement", 0);
         }
     }
-    private void IFrameRoll()
+    private void IFrames()
     {
         if (invulnarability)
         {
-            rollCurrentTime += Time.deltaTime;
+            timeWaitedHit += Time.deltaTime;
 
-            if (rollCurrentTime >= rollTime)
+            if(timeWaitedHit >= hitInvulnerabilityDuration)
             {
+                timeWaitedHit = 0;
                 invulnarability = false;
-                rollForce = 1;
-                rollCurrentTime = 0;
             }
         }
+
+        if (rolling)
+        {
+            rollCurrentTime += Time.deltaTime;
+            if (rollCurrentTime >= rollTime)
+            {
+                rollForce = 1;
+                rollCurrentTime = 0;
+                rolling = false;
+            }
+
+        }
     }
-    
+
     private void WaitNetCD()
     {
         netCDWaited += Time.deltaTime;
     }
 
-    private void Aiming()
+    private void WaitMierdonesCD()
     {
-        if(aiming)
-        {
-            if (Input.GetAxis("Mouse Y") < 0)
-            {
-                degree -= degreeIncrease;
-            }
-            if (Input.GetAxis("Mouse Y") > 0)
-            {
-                degree += degreeIncrease;
+        shieldTimeWaited += Time.fixedDeltaTime;
+        shieldUiCd.currentTime = shieldTimeWaited;
 
-            }
-            Debug.Log(degree);
-            aimDirection = Quaternion.Euler(0, 0, degree) * aimDirection;
-        }
+        smokeTimeWaited += Time.fixedDeltaTime;
+        smokeBombUiCd.currentTime = smokeTimeWaited;
+
+        netShootTimeWaited += Time.fixedDeltaTime;
+        netUiCd.currentTime = netShootTimeWaited;
     }
+
+
     private RaycastHit[] CheckForwardObjects()
     {
         Ray netRaycast = new Ray(transform.position, new Vector3(lastMovementDirection.x, 0, lastMovementDirection.y));
@@ -269,9 +295,9 @@ public class PlayerController : MonoBehaviour
 
     public void GetDamage()
     {
-        if (invulnarability)
+        if (invulnarability || rolling)
             return;
-        if(shieldActive)
+        if (shieldActive)
         {
             shieldActive = false;
             Destroy(existingShield);
@@ -279,10 +305,10 @@ public class PlayerController : MonoBehaviour
         }
 
         //Quitar 1 de vida
-        Debug.Log("Me hacen da�o");
+        Debug.Log("Me hacen daño");
         Instantiate(loseHealthParticles, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), Quaternion.identity);
         //Empezar el tiempo de invulnerabilidad
-    
+        invulnarability = true;
     }
 
 

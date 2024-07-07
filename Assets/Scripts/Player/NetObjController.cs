@@ -74,7 +74,7 @@ public class NetObjController : MonoBehaviour
     {
         Vector3 returnPos = Vector3.zero;
 
-        switch (playerAnimatorController.direction)
+        switch (_direction)
         {
             case EightDirectionAnimationController.Direction.TOP:
                 //Derecha

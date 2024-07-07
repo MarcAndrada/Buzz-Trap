@@ -1,19 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private GameObject net;
+    [SerializeField] private float bulletSpeed;
+    [HideInInspector]
+    public Vector3 direction;
+    private Rigidbody rb;
 
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
     private void Start()
     {
-        Destroy(gameObject, 5);
+        Destroy(gameObject, 8);
     }
 
-    [SerializeField] private float runForce;
+    private void Update()
+    {
+        rb.velocity = direction * bulletSpeed;
+    }
 
-    private GameObject parent;
+
+
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.CompareTag("Bee"))
@@ -23,15 +34,6 @@ public class Bullet : MonoBehaviour
             BeeManager.instance.CatchBee(bee);
             Instantiate(net, transform.position, Quaternion.identity);
             Destroy(gameObject);
-            //Debug.DrawLine(transform.position, parent.transform.position, Color.yellow);
-            //collision.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(transform.position.x - parent.transform.position.x, 0,
-            //    transform.position.y - parent.transform.position.y) * runForce;
-
         }
     }
-
-    }
-        parent = _parent;
-    {
-    public void SetParent(GameObject _parent)
 }

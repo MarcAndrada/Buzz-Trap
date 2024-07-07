@@ -11,8 +11,12 @@ public abstract class Bee : MonoBehaviour
     protected Vector3 rotationDestination;
     [SerializeField]
     protected float minDistanceFromDestination;
-
+    public bool stunned;
+    [SerializeField]
+    private float stunDuration;
+    private float stunTimeWaited;
     
+
     public Rigidbody rb {  get; protected set; }
     protected EightDirectionAnimationController eightController;
     protected Animator animator;
@@ -28,20 +32,29 @@ public abstract class Bee : MonoBehaviour
 
     protected virtual void MoveToDestiny(float _movementSpeed)
     {
+        if (stunned)
+            return;
+
         Vector3 direction = destinationPos - transform.position;
 
         direction = direction.magnitude > 1f ? direction.normalized : direction;
 
         rb.velocity = direction * _movementSpeed;
     }
-
-    public void GetDamage()
+    protected void WaitToStopStunned()
     {
-        //Sumar +1 en el contador de abejas atrapadas
+        if (!stunned)
+            return;
 
-        //Hacer desaparecer la abeja
+        stunTimeWaited += Time.fixedDeltaTime;
+
+        if (stunTimeWaited >= stunDuration)
+        {
+            stunTimeWaited = 0;
+            stunned = false;
+        }
+
     }
-
     public void SetDestination(Vector3 _destination)
     {
         destinationPos = new Vector3(_destination.x, transform.position.y, _destination.z);
