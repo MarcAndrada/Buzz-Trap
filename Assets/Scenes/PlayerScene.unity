@@ -447,13 +447,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1907756073}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.07, y: 2.85, z: -10}
+  m_LocalRotation: {x: 0.487107, y: -0, z: -0, w: 0.87334234}
+  m_LocalPosition: {x: 0.07, y: 7.15, z: -3.66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 58.301, y: 0, z: 0}
 --- !u!114 &1907756077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -631,10 +631,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4672467898942984860, guid: 3c95f79d3874a8f44afdc39f39060cf8,
         type: 3}
+      propertyPath: smoke
+      value: 
+      objectReference: {fileID: 8137409697439305036, guid: 533fc3fb3abf80a49b840c4cf2f65fb8,
+        type: 3}
+    - target: {fileID: 4672467898942984860, guid: 3c95f79d3874a8f44afdc39f39060cf8,
+        type: 3}
       propertyPath: aimAction
       value: 
       objectReference: {fileID: 2540774753701648079, guid: 7c7ea573683b40b48b25c778e7ce3612,
         type: 3}
+    - target: {fileID: 4672467898942984860, guid: 3c95f79d3874a8f44afdc39f39060cf8,
+        type: 3}
+      propertyPath: bombAction
+      value: 
+      objectReference: {fileID: 1769661364549417754, guid: 7c7ea573683b40b48b25c778e7ce3612,
+        type: 3}
+    - target: {fileID: 4672467898942984860, guid: 3c95f79d3874a8f44afdc39f39060cf8,
+        type: 3}
+      propertyPath: bulletForce
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 4672467898942984860, guid: 3c95f79d3874a8f44afdc39f39060cf8,
         type: 3}
       propertyPath: degreeIncrease
