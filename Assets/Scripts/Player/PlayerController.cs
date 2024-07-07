@@ -1,3 +1,4 @@
+using Unity.Burst.Intrinsics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -11,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private InputActionReference shieldAction;
     [SerializeField] private InputActionReference shotAction;
     [SerializeField] private InputActionReference aimAction;
+    [SerializeField] private InputActionReference bombAction;
 
     [Header("MoveVariables")]
     [SerializeField] private float moveSpeed;
@@ -34,10 +36,12 @@ public class PlayerController : MonoBehaviour
     [Header("ShootVariables")]
     [SerializeField] private GameObject bullet;
     [SerializeField] private float bulletForce;
-    [SerializeField] private float degreeIncrease;
 
     [Space, Header("Health")]
     [SerializeField] private GameObject loseHealthParticles;
+
+    [Header("SmokeVariables")]
+    [SerializeField] private GameObject smoke;
 
     private Rigidbody rb;
     private Animator animator;
@@ -51,9 +55,8 @@ public class PlayerController : MonoBehaviour
     private bool shieldActive;
     private bool aiming;
 
-    private float degree;
-
-    private Vector2 aimDirection;
+    private Vector3 aimDirection;
+    private Camera mainCamera;
 
     private void Awake()
     {
@@ -66,12 +69,13 @@ public class PlayerController : MonoBehaviour
     {
         rollCurrentTime = 0;
         rollForce = 1;
-        degree = 0;
 
         invulnarability = false;
         shieldActive = false;
         lastMovementDirection = Vector2.down;
         animationController.lookDirection = lastMovementDirection;
+
+        mainCamera = Camera.main;
 
     }
 
@@ -87,6 +91,7 @@ public class PlayerController : MonoBehaviour
         shieldAction.action.started += ShieldAction;
         shotAction.action.canceled += ShotAction;
         aimAction.action.started += AimAction;
+        bombAction.action.started += BombAction;
     }
 
     private void OnDisable()
@@ -100,15 +105,18 @@ public class PlayerController : MonoBehaviour
         shieldAction.action.started -= ShieldAction;
         shotAction.action.canceled -= ShotAction;
         aimAction.action.started -= AimAction;
+        bombAction.action.started -= BombAction;
     }
     #endregion
 
     private void WalkAction(InputAction.CallbackContext obj)
     {
-        movementDirection = obj.ReadValue<Vector2>();
-        animator.SetFloat("Movement", movementDirection.magnitude);
-        if (movementDirection != Vector2.zero)
-            lastMovementDirection = movementDirection;
+        if (!aiming)
+        {
+            movementDirection = obj.ReadValue<Vector2>();
+            animator.SetFloat("Movement", movementDirection.magnitude);
+            if (movementDirection != Vector2.zero)
+                lastMovementDirection = movementDirection;
 
         animationController.lookDirection = new Vector3(lastMovementDirection.x, 0, lastMovementDirection.y);
     }
@@ -154,17 +162,38 @@ public class PlayerController : MonoBehaviour
     private void ShotAction(InputAction.CallbackContext obj)
     {
         aiming = false;
+
         GameObject bulletCreated = Instantiate(bullet, transform.position, Quaternion.identity);
-        bulletCreated.GetComponent<Rigidbody>().AddForce(aimDirection.x * bulletForce, 0, aimDirection.y * bulletForce);
+
+        Vector3 shootDirection = aimDirection.normalized;
+
+        bulletCreated.GetComponent<Rigidbody>().AddForce(new Vector3(shootDirection.x, 0, shootDirection.z) * bulletForce, ForceMode.VelocityChange);
+        bulletCreated.GetComponent<Bullet>().SetParent(gameObject);
+
         aimDirection = lastMovementDirection;
-        degree = 0;
     }
 
     private void AimAction(InputAction.CallbackContext obj)
     {
         aiming = true;
-        aimDirection = lastMovementDirection;
-        degree = 0;
+
+        Vector3 mousePosition = Input.mousePosition;
+        Ray ray = mainCamera.ScreenPointToRay(mousePosition);
+
+        if (ray.direction.y != 0)
+        {
+            float distance = -ray.origin.y / ray.direction.y;
+            Vector3 hitPoint = ray.origin + ray.direction * distance;
+            hitPoint.y = 0; 
+            Debug.DrawLine(transform.position, hitPoint, Color.red);
+
+            aimDirection = (hitPoint - transform.position).normalized;
+        }
+    }
+
+    private void BombAction(InputAction.CallbackContext obj)
+    {
+        Instantiate(smoke, transform.position, Quaternion.identity);
     }
 
     private void Update()
@@ -178,7 +207,15 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        rb.velocity = new Vector3(movementDirection.x, 0, movementDirection.y) * moveSpeed * rollForce;
+        if(!aiming)
+        {
+            rb.velocity = new Vector3(movementDirection.x, 0, movementDirection.y) * moveSpeed * rollForce;
+        }
+        else
+        {
+            rb.velocity = Vector3.zero;
+            animator.SetFloat("Movement", 0);
+        }
     }
     private void IFrameRoll()
     {
@@ -242,7 +279,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //Quitar 1 de vida
-        Debug.Log("Me hacen daño");
+        Debug.Log("Me hacen daï¿½o");
         Instantiate(loseHealthParticles, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), Quaternion.identity);
         //Empezar el tiempo de invulnerabilidad
     
