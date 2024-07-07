@@ -69,4 +69,12 @@ public class YellowBee : Bee
         destinationPos = transform.position + new Vector3(Random.Range(-randomOffset, randomOffset), 0, Random.Range(-randomOffset, randomOffset));
         rotationDestination = destinationPos;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            other.GetComponent<PlayerController>().GetDamage();
+        }
+    }
 }

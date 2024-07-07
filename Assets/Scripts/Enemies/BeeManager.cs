@@ -434,6 +434,10 @@ public class BeeManager : MonoBehaviour
     }
     #endregion
 
+    public void CatchBee(Bee _bee)
+    {
+        StartCoroutine(BeeCaught(_bee));
+    }
     public IEnumerator BeeCaught(Bee _bee)
     {
         yield return new WaitForEndOfFrame();

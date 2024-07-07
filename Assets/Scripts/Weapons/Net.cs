@@ -27,12 +27,4 @@ public class Net : MonoBehaviour
             Destroy(gameObject, 2);
         }
     }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Bee") && netPrepared)
-        {
-            //Kill Bee
-        }
-    }
 }

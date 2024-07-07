@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float netAreaEffect;
     [SerializeField] private LayerMask netAffectedMask;
     [SerializeField] private Animator netAnimator;
+    private float netCDWaited;
+    [SerializeField] private float netCD;
 
     [Header("ShieldVariables")]
     [SerializeField] private GameObject shield;
@@ -115,17 +117,22 @@ public class PlayerController : MonoBehaviour
             rollForce = forceRolling;
 
             rb.velocity *= rollForce;
+
+            animator.SetTrigger("Roll");
         }
     }
 
     private void NetAction(InputAction.CallbackContext obj)
     {
+        if (netCDWaited < netCD)
+            return;
         GameObject foundObject = CheckForwardObject();
         if (foundObject)
         {
             KillBee(foundObject);
         }
         netAnimator.enabled = true;
+        netCDWaited = 0;
     }
 
     private void ShieldAction(InputAction.CallbackContext obj)
@@ -156,9 +163,11 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        WaitNetCD();
         IFrameRoll();
         Move();
         Aiming();
+
     }
 
     private void Move()
@@ -178,6 +187,11 @@ public class PlayerController : MonoBehaviour
                 rollCurrentTime = 0;
             }
         }
+    }
+    
+    private void WaitNetCD()
+    {
+        netCDWaited += Time.deltaTime;
     }
 
     private void Aiming()

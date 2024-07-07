@@ -63,12 +63,6 @@ public abstract class Bee : MonoBehaviour
         if (eightController)
             eightController.lookDirection = (rotationDestination - transform.position).normalized;
     }
-
-    protected virtual void OnDisable()
-    {
-        StartCoroutine(BeeManager.instance.BeeCaught(this));
-        StartCoroutine(BeeManager.instance.BeeCaught(null));
-    }
     protected virtual void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;

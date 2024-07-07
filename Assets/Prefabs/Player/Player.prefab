@@ -143,18 +143,22 @@ MonoBehaviour:
     type: 3}
   shotAction: {fileID: -3253370971727077831, guid: 7c7ea573683b40b48b25c778e7ce3612,
     type: 3}
+  aimAction: {fileID: 2540774753701648079, guid: 7c7ea573683b40b48b25c778e7ce3612,
+    type: 3}
   moveSpeed: 4
   rollTime: 0.5
   forceRolling: 2
   netDistance: 0.45
-  netAreaEffect: 1
+  netAreaEffect: 1.25
   netAffectedMask:
     serializedVersion: 2
     m_Bits: 64
   netAnimator: {fileID: 8323144274180458115}
+  netCD: 1.5
   shield: {fileID: 2550587361070604480, guid: 287523c05b4ca6f40b374881ed4816da, type: 3}
   bullet: {fileID: 2954930505767692289, guid: 2dbfe473e8a62424ca52ec24df24de9e, type: 3}
   bulletForce: 200
+  degreeIncrease: 0.5
 --- !u!114 &4289786375965520010
 MonoBehaviour:
   m_ObjectHideFlags: 0
