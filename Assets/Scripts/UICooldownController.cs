@@ -11,6 +11,6 @@ public class UICooldownController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        fillImage.fillAmount = currentTime / maxTime;
+        fillImage.fillAmount = (maxTime - currentTime) / maxTime;
     }
 }

@@ -74,7 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a61e80fcbed6dc4597a2d4d6a2a9350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockBackForce: 30
+  knockBackForce: 20
 --- !u!135 &722206074841098898
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -94,7 +94,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1.3
+  m_Radius: 2.3
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &4740968689991985562
 PrefabInstance:
@@ -182,7 +182,7 @@ PrefabInstance:
     - target: {fileID: 4593184485727747213, guid: bfdbdb5c3fcd90545a04a49158a15cf6,
         type: 3}
       propertyPath: m_Range
-      value: 4.0010624
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4593184485727747213, guid: bfdbdb5c3fcd90545a04a49158a15cf6,
         type: 3}

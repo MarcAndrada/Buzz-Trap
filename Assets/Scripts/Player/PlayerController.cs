@@ -52,7 +52,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject loseHealthParticles;
     [SerializeField] private float hitInvulnerabilityDuration;
     private float timeWaitedHit;
-
+    [SerializeField]
+    private int maxHealt;
+    private int currentHealth;
+    [SerializeField]
+    private HealthUI healthUI;
+    [SerializeField]
+    private GameObject deadCanvas;
+    [SerializeField]
+    private GameObject sonCamera;
     [Header("SmokeVariables")]
     [SerializeField] private GameObject smoke;
     [SerializeField]
@@ -99,9 +107,10 @@ public class PlayerController : MonoBehaviour
         netUiCd.maxTime = netShootCD;
         netShootTimeWaited = netShootCD;
 
-    }
+        currentHealth = maxHealt;
 
-    #region input
+        healthUI.UpdateHearts(currentHealth);
+    }
     private void OnEnable()
     {
         walkAction.action.started += WalkAction;
@@ -129,8 +138,9 @@ public class PlayerController : MonoBehaviour
         aimAction.action.started -= AimAction;
         bombAction.action.started -= BombAction;
     }
-    #endregion
 
+    #region input 
+    
     private void WalkAction(InputAction.CallbackContext obj)
     {
         movementDirection = obj.ReadValue<Vector2>();
@@ -215,6 +225,8 @@ public class PlayerController : MonoBehaviour
         animator.SetTrigger("Spin");
         smokeTimeWaited = 0;
     }
+    #endregion
+
 
     private void Update()
     {
@@ -266,7 +278,6 @@ public class PlayerController : MonoBehaviour
     {
         netCDWaited += Time.deltaTime;
     }
-
     private void WaitMierdonesCD()
     {
         shieldTimeWaited += Time.fixedDeltaTime;
@@ -305,10 +316,32 @@ public class PlayerController : MonoBehaviour
         }
 
         //Quitar 1 de vida
-        Debug.Log("Me hacen daño");
+        currentHealth--;
         Instantiate(loseHealthParticles, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), Quaternion.identity);
         //Empezar el tiempo de invulnerabilidad
         invulnarability = true;
+        healthUI.UpdateHearts(currentHealth);
+        CheckIfDie();
+    }
+
+    private void CheckIfDie()
+    {
+        if (currentHealth > 0)
+            return;
+
+        sonCamera.transform.SetParent(null);
+        deadCanvas.SetActive(true);
+        gameObject.SetActive(false);
+    }
+
+    public bool AddHealth()
+    {
+        if (currentHealth == maxHealt)
+            return false;
+
+        currentHealth++;
+        healthUI.UpdateHearts(currentHealth);
+        return true;
     }
 
 

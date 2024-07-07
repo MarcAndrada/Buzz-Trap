@@ -161,11 +161,19 @@ MonoBehaviour:
   netCD: 1.5
   netSlashParticles: {fileID: 1601429775269905804}
   shield: {fileID: 1890606197307065325, guid: 28e8f4d8adc1bcb4c9b5dc749cdcd620, type: 3}
+  shieldCD: 15
+  shieldUiCd: {fileID: 0}
   bullet: {fileID: 2954930505767692289, guid: 2dbfe473e8a62424ca52ec24df24de9e, type: 3}
+  netShootCD: 4
+  netUiCd: {fileID: 0}
   loseHealthParticles: {fileID: 6855314210357232287, guid: 15bca29274da89a4d9bfb418a1208b1c,
     type: 3}
   hitInvulnerabilityDuration: 3
+  maxHealt: 5
+  deadCanvas: {fileID: 0}
   smoke: {fileID: 8137409697439305036, guid: 533fc3fb3abf80a49b840c4cf2f65fb8, type: 3}
+  smokeCD: 10
+  smokeBombUiCd: {fileID: 0}
 --- !u!114 &4289786375965520010
 MonoBehaviour:
   m_ObjectHideFlags: 0
