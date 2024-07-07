@@ -147,3 +147,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   net: {fileID: 487770164884465348, guid: 027fd7d560ca21644825b390714c3a54, type: 3}
+  runForce: 2

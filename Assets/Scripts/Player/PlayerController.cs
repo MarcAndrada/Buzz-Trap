@@ -154,6 +154,7 @@ public class PlayerController : MonoBehaviour
         Vector3 shootDirection = aimDirection.normalized;
 
         bulletCreated.GetComponent<Rigidbody>().AddForce(new Vector3(shootDirection.x, 0, shootDirection.z) * bulletForce, ForceMode.VelocityChange);
+        bulletCreated.GetComponent<Bullet>().SetParent(gameObject);
 
         aimDirection = lastMovementDirection;
     }
